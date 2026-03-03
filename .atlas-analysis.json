@@ -1,0 +1,74 @@
+{
+  "projectType": "frontend",
+  "projectName": "Jamir Garro Portfolio",
+  "projectDescription": "A personal portfolio website showcasing professional journey, projects, and skills as a Software Developer.",
+  "theme": "palm",
+  "primaryColor": "#CCCCFE",
+  "lightColor": "#E6E6FE",
+  "darkColor": "#9B9BFD",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Overview",
+        "pages": [
+          "introduction",
+          "getting-started"
+        ]
+      },
+      {
+        "group": "Components",
+        "pages": [
+          "components/hero",
+          "components/about",
+          "components/projects",
+          "components/contact",
+          "components/navbar",
+          "components/footer"
+        ]
+      },
+      {
+        "group": "Customization",
+        "pages": [
+          "customization/styling",
+          "customization/content",
+          "customization/theme"
+        ]
+      },
+      {
+        "group": "Deployment",
+        "pages": [
+          "deployment/build",
+          "deployment/vercel",
+          "deployment/netlify"
+        ]
+      },
+      {
+        "group": "Development",
+        "pages": [
+          "development/structure",
+          "development/setup",
+          "development/scripts"
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Responsive design with Tailwind CSS 4.x",
+    "Built with Astro 5.x for optimal performance",
+    "Component-based architecture",
+    "Contact form integration with Formspree",
+    "Smooth scroll navigation",
+    "Custom color theme with primary accent",
+    "Optimized image handling with Sharp",
+    "SEO-friendly structure"
+  ],
+  "publicApiSurface": [
+    "Hero component - Main landing section with call-to-action",
+    "About component - Professional background and tech stack",
+    "Projects component - Featured work showcase",
+    "Contact component - Form with social media links",
+    "Navbar component - Navigation menu",
+    "Footer component - Footer section",
+    "Layout component - Base HTML structure"
+  ]
+}
