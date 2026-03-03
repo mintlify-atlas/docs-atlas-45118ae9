@@ -1,0 +1,395 @@
+---
+title: Contact Component
+description: An interactive contact form integrated with Formspree, featuring validation, success feedback, and social media links with animated interactions.
+---
+
+## Overview
+
+The Contact component provides a fully functional contact form with client-side JavaScript handling, form validation, and success/error messaging. It integrates with Formspree for form submission and includes social media links with hover effects.
+
+## Component Code
+
+```astro
+<section
+  class="py-24 bg-ocean-dark border-t border-white/5 relative overflow-hidden"
+  id="contact"
+>
+  <div class="absolute -right-20 bottom-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none">
+  </div>
+  <div class="mx-auto max-w-5xl px-6 relative z-10">
+    <!-- Content -->
+  </div>
+</section>
+
+<script lang="js">
+  // Form handling logic
+</script>
+```
+
+## Section Header
+
+Introduces the contact section with inviting copy:
+
+```html
+<div class="text-center mb-16">
+  <h2 class="font-serif text-primary text-4xl font-bold mb-4">
+    Start a Conversation
+  </h2>
+  <p class="text-slate-400 max-w-lg mx-auto">
+    I'm always open to new challenges and opportunities to grow. Whether you
+    have a question, a project in mind, or just want to connect, feel free
+    to reach out—I'd love to hear from you.
+  </p>
+</div>
+```
+
+## Form Container
+
+Uses a double-border technique for visual depth:
+
+<CodeGroup>
+```html Outer Container
+<div class="bg-ocean-card p-1 rounded-3xl border border-white/5 shadow-2xl">
+  <div class="bg-ocean-dark/50 p-8 md:p-12 rounded-[1.3rem]">
+    <!-- Form -->
+  </div>
+</div>
+```
+
+```css Styling Notes
+bg-ocean-card p-1: Creates 4px border effect
+rounded-3xl: Outer border radius
+rounded-[1.3rem]: Inner border radius (slightly smaller)
+bg-ocean-dark/50: Semi-transparent inner background
+```
+</CodeGroup>
+
+## Form Structure
+
+The form uses a responsive grid layout with Formspree integration:
+
+```html
+<form
+  id="my-form"
+  action="https://formspree.io/f/meeljvav"
+  method="POST"
+  class="grid grid-cols-1 md:grid-cols-2 gap-8"
+>
+  <!-- Form fields -->
+</form>
+```
+
+<Note>
+**Form Integration:** The form posts to Formspree endpoint `meeljvav`. JavaScript intercepts submission for custom handling and feedback.
+</Note>
+
+## Form Fields
+
+<Tabs>
+  <Tab title="Name Field">
+    ```html
+    <div class="space-y-2">
+      <label class="text-xs font-bold uppercase text-primary ml-1 tracking-wider drop-shadow-[0_0_5px_rgba(204,204,254,0.3)]">
+        Full Name
+      </label>
+      <input
+        class="w-full bg-ocean-card border-white/5 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent text-white placeholder-white/60 transition-all shadow-inner"
+        placeholder="Jamir Garro"
+        type="text"
+        id="name"
+        name="name"
+        required
+      />
+    </div>
+    ```
+
+    **Features:**
+    - Required field validation
+    - Focus ring in primary color
+    - Inner shadow for depth
+    - Glowing label effect
+  </Tab>
+  
+  <Tab title="Email Field">
+    ```html
+    <div class="space-y-2">
+      <label class="text-xs font-bold uppercase text-primary ml-1 tracking-wider drop-shadow-[0_0_5px_rgba(204,204,254,0.3)]">
+        Email Address
+      </label>
+      <input
+        class="w-full bg-ocean-card border-white/5 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent text-white placeholder-white/60 transition-all shadow-inner"
+        placeholder="jamirgarro@example.com"
+        type="email"
+        name="email"
+        required
+        id="mail"
+      />
+    </div>
+    ```
+
+    **Features:**
+    - Email type validation
+    - Required attribute
+    - Consistent styling with name field
+  </Tab>
+  
+  <Tab title="Message Field">
+    ```html
+    <div class="space-y-2 md:col-span-2">
+      <label class="text-xs font-bold uppercase text-primary ml-1 tracking-wider drop-shadow-[0_0_5px_rgba(204,204,254,0.3)]">
+        Message
+      </label>
+      <textarea
+        class="w-full bg-ocean-card border-white/5 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent text-white placeholder-white/60 transition-all shadow-inner resize-none"
+        placeholder="Hi Jamir, I'd love to discuss a potential collaboration or project..."
+        rows="6"
+        id="message"
+        name="message"
+        required
+      ></textarea>
+    </div>
+    ```
+
+    **Features:**
+    - Spans both columns on desktop (`md:col-span-2`)
+    - Fixed height with 6 rows
+    - Resize disabled (`resize-none`)
+    - Required validation
+  </Tab>
+</Tabs>
+
+## Submit Button
+
+Features icon and hover effects:
+
+```html
+<div class="md:col-span-2 pt-4">
+  <button
+    id="my-form-button"
+    class="w-full bg-primary hover:bg-primary-dim text-ocean-dark hover:text-white font-bold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(204,204,254,0.4)] hover:shadow-[0_0_30px_rgba(204,204,254,0.6)] flex items-center justify-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+    type="submit"
+  >
+    <span class="material-symbols-outlined">send</span> Send Message
+  </button>
+  <p
+    id="my-form-status"
+    class="text-center text-primary opacity-0 translate-y-0 transition-all duration-500 pointer-events-none ease-in-out mt-2"
+  >
+    text
+  </p>
+</div>
+```
+
+<Note>
+**Button States:**
+- Default: Primary background with glow
+- Hover: Lighter background, white text, enhanced glow, lifts up
+- Active: Returns to default position
+- After submit: Status message fades in below
+</Note>
+
+## Form Handling Script
+
+Client-side JavaScript manages form submission:
+
+<CodeGroup>
+```javascript Form Submission Handler
+const form = document.getElementById("my-form");
+
+async function handleSubmit(event) {
+  event.preventDefault();
+  const status = document.getElementById("my-form-status");
+  const data = new FormData(event.target);
+  
+  fetch(event.target.action, {
+    method: form.method,
+    body: data,
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        status.classList.add("opacity-100", "-translate-y-2");
+        status.innerHTML = "Thanks for your submission!";
+        setTimeout(() => {
+          status.innerHTML = "";
+        }, 2000);
+        form.reset();
+      } else {
+        // Error handling
+      }
+    })
+    .catch((error) => {
+      status.innerHTML = "Oops! There was a problem submitting your form";
+    });
+}
+
+form.addEventListener("submit", handleSubmit);
+```
+
+```markdown Key Features
+- Prevents default form submission
+- Uses Fetch API for AJAX submission
+- Shows success message with animation
+- Resets form after successful submission
+- Handles errors gracefully
+- Auto-hides success message after 2 seconds
+```
+</CodeGroup>
+
+### Success Animation
+
+The status message uses CSS transitions:
+
+```css
+/* Initial state (hidden) */
+opacity-0 translate-y-0
+
+/* Success state (visible) */
+opacity-100 -translate-y-2
+
+/* Transition */
+transition-all duration-500 ease-in-out
+```
+
+## Social Media Links
+
+Displays GitHub and LinkedIn with hover effects:
+
+<Tabs>
+  <Tab title="Container">
+    ```html
+    <div class="mt-20 flex flex-col items-center">
+      <p class="text-white/80 mb-8 text-sm font-medium">Connect on Socials</p>
+      <div class="flex items-center gap-10">
+        <!-- Social links -->
+      </div>
+    </div>
+    ```
+  </Tab>
+  
+  <Tab title="GitHub Link">
+    ```html
+    <a
+      class="text-primary hover:text-ocean-dark transition-all hover:scale-110 hover:drop-shadow-[0_0_6px_rgba(204,204,254,0.6)] border border-primary hover:bg-primary p-2.5 rounded-full"
+      href="https://github.com/Doki2007"
+      target="_blank"
+      aria-label="GitHub"
+    >
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 0c-6.626 0-12 5.373-12 12..."></path>
+      </svg>
+    </a>
+    ```
+
+    **Hover Effects:**
+    - Icon color inverts (primary → dark)
+    - Background fills with primary color
+    - Scales up 10%
+    - Adds glow effect
+  </Tab>
+  
+  <Tab title="LinkedIn Link">
+    ```html
+    <a
+      class="text-primary hover:text-ocean-dark transition-all hover:scale-110 hover:drop-shadow-[0_0_6px_rgba(204,204,254,0.6)] border border-primary hover:bg-primary p-2.5 rounded-full"
+      href="https://www.linkedin.com/in/jamir-garro-500aa125a/"
+      target="_blank"
+      aria-label="LinkedIn"
+    >
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M19 0h-14c-2.761 0-5 2.239-5 5..."></path>
+      </svg>
+    </a>
+    ```
+
+    Same hover effects as GitHub for consistency.
+  </Tab>
+</Tabs>
+
+## Background Decoration
+
+Subtle glow effect in bottom-right:
+
+```html
+<div class="absolute -right-20 bottom-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none">
+</div>
+```
+
+## Usage in Main Page
+
+```astro src/pages/index.astro
+---
+import Contact from "../components/Contact.astro";
+---
+
+<Layout>
+  <Navbar />
+  <Hero />
+  <About />
+  <Projects />
+  <Contact />
+  <Footer />
+</Layout>
+```
+
+## Form Field Styling
+
+### Input Focus States
+
+<CodeGroup>
+```css Default State
+bg-ocean-card: Dark background
+border-white/5: Subtle border
+shadow-inner: Depth effect
+text-white: White text
+placeholder-white/60: Semi-transparent placeholder
+```
+
+```css Focus State
+focus:ring-2: 2px ring appears
+focus:ring-primary: Primary color ring
+focus:border-transparent: Hides default border
+transition-all: Smooth animation
+```
+</CodeGroup>
+
+### Label Styling
+
+Labels feature consistent design:
+- Uppercase text for emphasis
+- Primary color for brand consistency
+- Wide letter spacing (`tracking-wider`)
+- Glow effect: `drop-shadow-[0_0_5px_rgba(204,204,254,0.3)]`
+- Extra small font size for hierarchy
+
+## Responsive Layout
+
+<Tabs>
+  <Tab title="Mobile">
+    - Single column grid (`grid-cols-1`)
+    - Stacked name and email fields
+    - Full-width message field
+    - Reduced padding (p-8)
+  </Tab>
+  
+  <Tab title="Desktop">
+    - Two-column grid (`md:grid-cols-2`)
+    - Name and email side-by-side
+    - Message spans both columns
+    - Enhanced padding (p-12)
+  </Tab>
+</Tabs>
+
+## Accessibility Features
+
+1. **Semantic HTML:** Uses proper `<form>`, `<label>`, and `<button>` elements
+2. **ARIA Labels:** Social links include `aria-label` attributes
+3. **Required Fields:** All inputs marked as required
+4. **Focus Indicators:** Clear focus rings for keyboard navigation
+5. **Error Messages:** Status element provides feedback
+
+<Note>
+The form uses native HTML5 validation (required, type="email") in addition to server-side validation via Formspree.
+</Note>

@@ -1,0 +1,357 @@
+---
+title: Content
+description: Guide to updating personal information, projects, and content throughout your portfolio
+---
+
+# Content Customization
+
+This guide covers how to update all the personal content in your portfolio, from hero text to project showcases.
+
+## Personal Information
+
+### Hero Section
+
+Update your main introduction in `/src/components/Hero.astro`:
+
+**Location:** `/src/components/Hero.astro:30-44`
+
+```astro
+<h1 class="font-display font-black text-white text-4xl md:text-5xl lg:text-6xl mb-6">
+  Junior Frontend Developer
+  <span class="text-gradient">
+    / <br class="hidden lg:block" />Jamir Garro
+  </span>
+</h1>
+<p class="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto lg:mx-0 mb-10">
+  Specializing in creating responsive, high-performance interfaces with
+  React, Astro, and Tailwind CSS. Focused on clean code and fluid user
+  experiences.
+</p>
+```
+
+**What to change:**
+- Job title (e.g., "Junior Frontend Developer")
+- Your name in the `<span class="text-gradient">` element
+- Description text about your skills and focus areas
+
+### Availability Badge
+
+Update your work status in the hero section:
+
+**Location:** `/src/components/Hero.astro:22-29`
+
+```astro
+<div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-bold uppercase tracking-widest">
+  <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+  Available for work
+</div>
+```
+
+Change "Available for work" to reflect your current status (e.g., "Open to opportunities", "Freelancing", etc.).
+
+### Hero Image
+
+Replace the hero portrait image:
+
+**Location:** `/src/components/Hero.astro:2-3`
+
+```astro
+import HeroImage from "../assets/images/hero-image.webp";
+```
+
+Replace `/src/assets/images/hero-image.webp` with your own portrait image. For best results:
+- Use square dimensions (e.g., 800x800px)
+- Save as WebP for optimal performance
+- Ensure good contrast against dark backgrounds
+
+### Status Card
+
+Update the floating status card in the hero:
+
+**Location:** `/src/components/Hero.astro:98-101`
+
+```astro
+<div>
+  <p class="text-xs text-slate-400 uppercase font-bold">Status</p>
+  <p class="text-white font-bold">Freelance Developer</p>
+</div>
+```
+
+## About Section
+
+Customize your bio and background in `/src/components/About.astro`:
+
+**Location:** `/src/components/About.astro:9-30`
+
+```astro
+<h2 class="font-serif text-white text-4xl md:text-5xl font-bold mb-8">
+  Building Digital <br />
+  <span class="text-primary italic">Experiences</span>
+</h2>
+<div class="space-y-4 text-slate-400 text-lg leading-relaxed font-light">
+  <p>
+    I am a passionate software developer who finds creativity in code.
+    My journey began with a rigorous accelerated degree at ISIL,
+    completing a 3-year curriculum in just 2 years.
+  </p>
+  <p>
+    Since then, I have honed my skills through self-directed learning
+    and freelance projects, building resilient habits that I bring to
+    every challenge. Whether architecting web applications or crafting
+    pixel-perfect email campaigns, I focus on delivering interfaces that
+    feel organic and professional.
+  </p>
+</div>
+```
+
+### Tech Stack
+
+Update your technologies in `/src/components/About.astro:38-107`:
+
+```astro
+<span class="px-5 py-2.5 rounded-lg bg-ocean-card border border-primary/40 text-slate-200 text-sm">
+  <span class="material-symbols-outlined text-xs ml-1">rocket_launch</span>
+  Astro
+</span>
+```
+
+Add or remove `<span>` elements to reflect your tech stack. Each includes:
+- Material icon (optional)
+- Technology name
+- Consistent styling for hover effects
+
+### Professional Milestones
+
+Update your work experience timeline in `/src/components/About.astro:124-186`:
+
+```astro
+<div class="relative grid grid-cols-[40px_1fr] gap-x-6 mb-12 group">
+  <div class="relative z-10 w-10 h-10 rounded-full bg-ocean-dark border-3 border-primary/40">
+    <span class="material-symbols-outlined text-lg">mail</span>
+  </div>
+  <div>
+    <span class="inline-block px-2 py-0.5 rounded text-xs font-bold bg-white/5 text-primary mb-2">
+      Sep 2025 - Present
+    </span>
+    <h4 class="text-white text-lg font-bold">Email Developer</h4>
+    <p class="text-primary-dim text-sm font-medium">FCB</p>
+    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+      Creating responsive email campaigns for major clients...
+    </p>
+  </div>
+</div>
+```
+
+**To add a new milestone:**
+1. Copy an existing milestone `<div>` block
+2. Update the date range
+3. Change the icon (use [Material Symbols](https://fonts.google.com/icons))
+4. Update job title, company, and description
+
+## Projects
+
+### Adding a New Project
+
+Projects are defined in `/src/components/Projects.astro`. Each project is an `<article>` element:
+
+**Location:** `/src/components/Projects.astro:34-143`
+
+```astro
+<article class="glass-card rounded-3xl overflow-hidden group hover:shadow-[0_20px_40px] hover:shadow-primary/15 hover:-translate-y-2 transition-all duration-300 ease-out border-2 border-primary/30 hover:border-primary/50 bg-ocean-dark flex flex-col h-full">
+  <!-- Image section -->
+  <div class="h-52 bg-ocean-light relative overflow-hidden shrink-0">
+    <div class="absolute inset-0 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1">
+      <Image
+        src={cmsImage}
+        alt="Headless CMS showing Peruvian organic coffee beans and nutrition products"
+        class="w-full h-full object-cover object-top"
+        loading="lazy"
+        decoding="async"
+        widths={[400, 800, 1200]}
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
+    </div>
+    
+    <!-- Tech stack badges -->
+    <div class="absolute bottom-6 left-6 flex gap-2">
+      <span class="px-3 py-1 bg-primary/20 border border-primary/20 text-primary text-[11px] font-bold rounded-full backdrop-blur-sm shadow-lg">
+        ASTRO
+      </span>
+      <span class="px-3 py-1 bg-[#131632]/60 border border-white/10 text-white text-[11px] font-bold rounded-full backdrop-blur-sm">
+        TAILWIND
+      </span>
+    </div>
+  </div>
+  
+  <!-- Content section -->
+  <div class="p-6 bg-ocean-dark flex flex-col flex-1">
+    <h3 class="text-xl md:text-2xl font-serif text-primary transition-colors mb-2">
+      Headless CMS
+    </h3>
+    <p class="text-white text-sm mb-6 leading-relaxed font-semibold flex-1">
+      A high-performance headless CMS designed to manage a catalog of
+      organic products and an interactive recipe book.
+    </p>
+    
+    <!-- Challenges section -->
+    <div class="bg-ocean-card border border-primary/30 rounded-2xl p-4 mb-6">
+      <p class="text-xs font-bold text-primary uppercase tracking-wider mb-5 flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">psychology</span>
+        Challenges Overcome
+      </p>
+      <ul class="space-y-3">
+        <li class="flex items-center gap-2 text-xs text-white">
+          <span class="material-symbols-outlined text-primary text-base">check_circle</span>
+          <span>Architected a scalable static content structure...</span>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- Links -->
+    <div class="flex items-center justify-end pt-4 border-t border-white/5 mt-auto">
+      <div class="flex gap-4">
+        <a href="https://alefoods.vercel.app" target="_blank" title="Live Demo">
+          <span class="material-symbols-outlined text-primary hover:text-primary/60">laptop_chromebook</span>
+        </a>
+        <a href="https://github.com/Doki2007/alefoods" target="_blank" title="View Code">
+          <span class="material-symbols-outlined text-primary hover:text-primary/60">code</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+```
+
+**Steps to add a new project:**
+
+1. **Import project image** at the top of the file:
+   ```astro
+   import myProjectImage from "../assets/images/my-project.webp";
+   ```
+
+2. **Copy an existing project article** and update:
+   - Image `src` attribute
+   - Alt text for accessibility
+   - Tech stack badges
+   - Project title
+   - Description
+   - Challenges list
+   - Demo and GitHub links
+
+### Removing a Project
+
+Simply delete the entire `<article>` block for the project you want to remove. The grid layout will automatically adjust.
+
+### GitHub Link
+
+Update your GitHub profile link in the header:
+
+**Location:** `/src/components/Projects.astro:20-30`
+
+```astro
+<a
+  class="text-text-light hover:text-primary flex items-center gap-2"
+  href="https://github.com/Doki2007"
+  target="_blank"
+  title="View GitHub"
+>
+  View GitHub
+  <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+```
+
+## Contact Form
+
+### Formspree Configuration
+
+The contact form uses [Formspree](https://formspree.io/) for form handling.
+
+**Location:** `/src/components/Contact.astro:22-26`
+
+```astro
+<form
+  id="my-form"
+  action="https://formspree.io/f/meeljvav"
+  method="POST"
+  class="grid grid-cols-1 md:grid-cols-2 gap-8"
+>
+```
+
+**To configure your own form:**
+
+1. Go to [formspree.io](https://formspree.io/) and create a free account
+2. Create a new form and get your form endpoint
+3. Replace `https://formspree.io/f/meeljvav` with your endpoint
+4. The form will automatically start sending submissions to your email
+
+### Form Fields
+
+The form includes three fields:
+
+- **Name** (required)
+- **Email** (required)
+- **Message** (required)
+
+To add more fields, follow the existing pattern:
+
+```astro
+<div class="space-y-2">
+  <label class="text-xs font-bold uppercase text-primary ml-1 tracking-wider">
+    Your Label
+  </label>
+  <input
+    class="w-full bg-ocean-card border-white/5 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary text-white"
+    placeholder="Placeholder text"
+    type="text"
+    name="fieldName"
+    required
+  />
+</div>
+```
+
+### Social Links
+
+Update your social media links in `/src/components/Contact.astro:90-114`:
+
+```astro
+<a
+  class="text-primary hover:text-ocean-dark transition-all hover:scale-110 border border-primary hover:bg-primary p-2.5 rounded-full"
+  href="https://github.com/Doki2007"
+  target="_blank"
+  aria-label="GitHub"
+>
+  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+    <!-- SVG path -->
+  </svg>
+</a>
+```
+
+Update the `href` attributes with your own social media profiles.
+
+## Site Metadata
+
+Update the site title and metadata in `/src/layouts/Layout.astro:13`:
+
+```html
+<title>Jamir Garro || Portfolio</title>
+```
+
+Also update the site URL in `/astro.config.mjs:7`:
+
+```js
+site: "https://jamirgarro.vercel.app",
+```
+
+## Best Practices
+
+1. **Keep content concise**: Aim for clarity and impact
+2. **Update regularly**: Keep projects and experience current
+3. **Optimize images**: Use WebP format and appropriate dimensions
+4. **Test links**: Ensure all external links work correctly
+5. **Accessibility**: Always include alt text for images
+6. **Consistent tone**: Maintain a professional, approachable voice throughout
+
+## Next Steps
+
+- Learn about [Styling](/customization/styling) to customize colors and fonts
+- Explore the [Theme](/customization/theme) documentation for design tokens

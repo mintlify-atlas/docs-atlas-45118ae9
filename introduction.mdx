@@ -1,0 +1,135 @@
+---
+title: Introduction
+description: Welcome to Jamir Garro's portfolio documentation. A modern, high-performance portfolio website built with Astro, Tailwind CSS, and TypeScript.
+---
+
+## Welcome to Jamir Garro Portfolio
+
+A modern, high-performance personal portfolio website showcasing professional work, skills, and experience as a Junior Frontend Developer. Built with cutting-edge web technologies for optimal performance and stunning visual design.
+
+<CardGroup cols={2}>
+  <Card title="Getting started" icon="rocket" href="/getting-started">
+    Set up the portfolio locally and start exploring the codebase
+  </Card>
+  <Card title="Development" icon="sitemap" href="/development/structure">
+    Learn about the project structure and component organization
+  </Card>
+  <Card title="Components" icon="cube" href="/components/hero">
+    Explore the reusable Astro components that power the portfolio
+  </Card>
+  <Card title="Customization" icon="palette" href="/customization/styling">
+    Understand the Tailwind CSS theming and custom design system
+  </Card>
+</CardGroup>
+
+## Key features
+
+This portfolio demonstrates modern web development best practices:
+
+### Performance-first architecture
+
+Built with **Astro 5.x**, the portfolio leverages static site generation for near-instant page loads. The component-based architecture ensures optimal performance with minimal JavaScript shipped to the client.
+
+```astro
+// src/pages/index.astro - Main entry point
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Projects from "../components/Projects.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+
+<Layout>
+  <Navbar />
+  <Hero />
+  <About />
+  <Projects />
+  <Contact />
+  <Footer />
+</Layout>
+```
+
+### Modern design system
+
+**Tailwind CSS 4.x** powers a custom design system with:
+- Custom color palette (ocean-dark theme with primary purple accent)
+- Responsive typography using Inter and Playfair Display fonts
+- Smooth animations and transitions
+- Glass morphism effects and gradient backgrounds
+
+### Interactive components
+
+The portfolio features several interactive sections:
+
+<CardGroup cols={3}>
+  <Card title="Hero section" icon="star">
+    Dynamic hero with animated background elements and availability status badge
+  </Card>
+  <Card title="About section" icon="user">
+    Professional timeline with tech stack showcase and hover effects
+  </Card>
+  <Card title="Projects showcase" icon="folder">
+    Featured work with live demos and GitHub links
+  </Card>
+  <Card title="Contact form" icon="envelope">
+    Integrated Formspree form with real-time validation
+  </Card>
+  <Card title="Navigation" icon="bars">
+    Sticky navbar with scroll-based active state tracking
+  </Card>
+  <Card title="Social links" icon="share-nodes">
+    GitHub and LinkedIn integration with hover animations
+  </Card>
+</CardGroup>
+
+## Tech stack
+
+The portfolio is built with modern web technologies:
+
+| Technology | Version | Purpose |
+|------------|---------|----------|
+| **Astro** | 5.17.1 | Static site generator and component framework |
+| **Tailwind CSS** | 4.1.18 | Utility-first CSS framework |
+| **TypeScript** | Latest | Type-safe JavaScript for better DX |
+| **Sharp** | 0.34.5 | High-performance image optimization |
+| **Vite** | Built-in | Fast build tool and dev server |
+
+<Note>
+  The portfolio uses Astro's built-in TypeScript support with strict configuration for type safety throughout the codebase.
+</Note>
+
+## Project philosophy
+
+This portfolio demonstrates:
+
+1. **Clean code practices** - Well-organized component structure with clear separation of concerns
+2. **Performance optimization** - Static generation, optimized images, and minimal JavaScript
+3. **Responsive design** - Mobile-first approach with breakpoints for all screen sizes
+4. **Accessibility** - Semantic HTML, ARIA labels, and keyboard navigation support
+5. **Developer experience** - Fast hot module replacement and TypeScript for better tooling
+
+## Live deployment
+
+The portfolio is deployed on Vercel with automatic deployments from the main branch:
+
+- **Live site**: https://jamirgarro.vercel.app
+- **GitHub repository**: https://github.com/Doki2007
+
+<Info>
+  The site is configured for deployment on Vercel with the site URL defined in `astro.config.mjs`.
+</Info>
+
+## What's next?
+
+Explore the documentation to learn how to:
+
+- Set up the development environment
+- Understand the component architecture
+- Customize the design system
+- Add new sections or features
+- Deploy your own version
+
+<Card title="Ready to get started?" icon="rocket" href="/getting-started">
+  Follow the getting started guide to run the portfolio locally
+</Card>

@@ -1,0 +1,458 @@
+---
+title: Theme
+description: Complete guide to the color system, typography, and design tokens in the portfolio
+---
+
+# Theme Customization
+
+The portfolio uses a cohesive design system built on Tailwind CSS 4.x custom theme configuration. This guide covers the color palette, typography, and design tokens.
+
+## Color System
+
+All colors are defined as CSS custom properties in the `@theme` directive within `/src/styles/global.css`.
+
+### Primary Colors
+
+The primary color palette creates a striking lavender accent against deep ocean backgrounds:
+
+```css
+--color-primary: #CCCCFE;
+--color-primary-dim: #a5a5d9;
+```
+
+**Primary (`#CCCCFE`)**
+- Main accent color for interactive elements
+- Used for buttons, links, badges, and highlights
+- Creates strong contrast against dark backgrounds
+- Provides a modern, professional aesthetic
+
+**Primary Dim (`#a5a5d9`)**
+- Slightly muted variant of primary
+- Used for hover states and secondary accents
+- Provides visual hierarchy within primary-colored elements
+
+**Usage examples:**
+
+```astro
+<!-- Buttons -->
+<button class="bg-primary hover:bg-primary-dim text-ocean-dark">
+  Click Me
+</button>
+
+<!-- Text highlights -->
+<h2 class="text-primary">Featured Section</h2>
+
+<!-- Borders with opacity -->
+<div class="border border-primary/30 hover:border-primary/50">
+  Card content
+</div>
+```
+
+### Ocean Palette
+
+The ocean color scheme creates depth and hierarchy through layered backgrounds:
+
+```css
+--color-ocean-dark: #12152A;
+--color-ocean-card: #1a1e36;
+--color-ocean-light: #232946;
+```
+
+**Ocean Dark (`#12152A`)**
+- Darkest shade, used for main backgrounds
+- Creates the foundational layer of the design
+- Provides maximum contrast for white text
+- Used in Hero, About, and Contact sections
+
+**Ocean Card (`#1a1e36`)**
+- Mid-tone background for cards and elevated surfaces
+- Creates visual separation from ocean-dark
+- Used for project cards, form containers, and UI elements
+- Helps establish visual hierarchy
+
+**Ocean Light (`#232946`)**
+- Lightest ocean shade for subtle backgrounds
+- Used for image containers and hover states
+- Provides gentle contrast within cards
+
+**Usage examples:**
+
+```astro
+<!-- Main section -->
+<section class="bg-ocean-dark">
+  <!-- Card with elevation -->
+  <div class="bg-ocean-card rounded-3xl p-8">
+    <!-- Image container -->
+    <div class="bg-ocean-light h-52">
+      <img src="..." />
+    </div>
+  </div>
+</section>
+```
+
+### Text Colors
+
+```css
+--color-text-light: #90a1b9;
+```
+
+**Text Light (`#90a1b9`)**
+- Secondary text color for descriptions and metadata
+- Provides reduced visual weight compared to white
+- Used for body text, captions, and supporting content
+- Creates comfortable reading hierarchy
+
+**Color hierarchy:**
+1. White (`#FFFFFF`) - Primary headings and important text
+2. Primary (`#CCCCFE`) - Accented headings and interactive text
+3. Text Light (`#90a1b9`) - Body text and descriptions
+4. Slate variants - Muted text (via Tailwind: `text-slate-300`, `text-slate-400`)
+
+## Typography
+
+The portfolio uses a dual-font system combining modern sans-serif and elegant serif typefaces.
+
+### Font Families
+
+```css
+--font-sans: "Inter", sans-serif;
+--font-serif: "Playfair Display", serif;
+```
+
+### Inter (Sans-serif)
+
+**Weights available:** 400, 500, 600, 700, 800, 900
+
+**Usage:**
+- Primary font for body text and UI elements
+- Clean, modern, and highly readable
+- Variable weights provide flexibility
+- Default font applied to body via `font-display` class
+
+**Applied via:**
+```astro
+<body class="font-display antialiased">
+```
+
+Note: `font-display` maps to `--font-sans` (Inter)
+
+### Playfair Display (Serif)
+
+**Weight available:** 700 (Bold)
+
+**Usage:**
+- Headings and section titles
+- Adds elegance and contrast to the design
+- Used sparingly for maximum impact
+
+**Examples:**
+```astro
+<!-- Serif heading -->
+<h2 class="font-serif text-primary text-4xl font-bold">
+  Start a Conversation
+</h2>
+
+<!-- Project titles -->
+<h3 class="font-serif text-primary text-2xl">
+  Headless CMS
+</h3>
+```
+
+### Loading Fonts
+
+Fonts are loaded from Google Fonts in the layout:
+
+**Location:** `/src/layouts/Layout.astro:15-22`
+
+```html
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap"
+  rel="stylesheet"
+/>
+```
+
+**Performance tip:** The `display=swap` parameter prevents invisible text during font loading.
+
+### Text Size Scale
+
+The portfolio uses Tailwind's default text sizing with responsive variants:
+
+```astro
+<!-- Responsive heading -->
+<h1 class="text-4xl md:text-5xl lg:text-6xl">
+  Junior Frontend Developer
+</h1>
+
+<!-- Body text -->
+<p class="text-lg md:text-xl leading-relaxed">
+  Description text
+</p>
+
+<!-- Small text -->
+<span class="text-xs uppercase tracking-widest">
+  Badge or label
+</span>
+```
+
+## Border Radius
+
+Consistent border radius tokens create visual harmony:
+
+```css
+--border-radius: 0.25rem;       /* 4px - Small elements */
+--border-radius-lg: 0.5rem;     /* 8px - Buttons, inputs */
+--border-radius-xl: 0.75rem;    /* 12px - Cards */
+--border-radius-2xl: 1rem;      /* 16px - Large cards */
+--border-radius-full: 9999px;   /* Pills, circles */
+```
+
+**Usage in Tailwind:**
+- `rounded` → 0.25rem
+- `rounded-lg` → 0.5rem
+- `rounded-xl` → 0.75rem
+- `rounded-2xl` → 1rem
+- `rounded-3xl` → 1.5rem (Tailwind default, not in theme)
+- `rounded-full` → 9999px
+
+**Example:**
+```astro
+<!-- Full rounded button -->
+<button class="rounded-full px-8 py-4">
+  Contact Me
+</button>
+
+<!-- Card with large radius -->
+<article class="rounded-3xl overflow-hidden">
+  <!-- Content -->
+</article>
+```
+
+## Custom Gradients
+
+### Ocean Gradient
+
+A subtle vertical gradient for backgrounds:
+
+```css
+.ocean-gradient {
+  background: linear-gradient(180deg, #12152a 0%, #0e1121 100%);
+}
+```
+
+**Used in:** Hero section for depth and visual interest
+
+**Example:**
+```astro
+<section class="ocean-gradient min-h-screen">
+  <!-- Hero content -->
+</section>
+```
+
+### Text Gradient
+
+A multi-color gradient for text highlights:
+
+```css
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right, #FFFFFF, #E6E6FE, #CCCCFE, #9B9BFD);
+}
+```
+
+**Colors:** White → Light lavender → Primary → Deep lavender
+
+**Example:**
+```astro
+<h1>
+  Junior Frontend Developer
+  <span class="text-gradient">/ Jamir Garro</span>
+</h1>
+```
+
+## Custom Effects
+
+### Organic Border Animation
+
+Creates a morphing blob effect:
+
+```css
+.organic-border {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: morph 8s ease-in-out infinite;
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+```
+
+**Duration:** 8 seconds
+**Easing:** ease-in-out
+**Iterations:** infinite
+
+**Use case:** Decorative elements, image containers, and organic shapes
+
+### Glow Effects
+
+Shadows with color create neon-like glow:
+
+```astro
+<!-- Soft glow -->
+<div class="shadow-[0_0_15px_rgba(204,204,254,0.3)]">
+  <!-- Content -->
+</div>
+
+<!-- Strong glow -->
+<button class="shadow-[0_0_40px_rgba(204,204,254,0.5)]">
+  Click Me
+</button>
+
+<!-- Hover effect -->
+<a class="hover:shadow-[0_0_30px_rgba(204,204,254,0.6)]">
+  Link
+</a>
+```
+
+### Backdrop Blur
+
+Creates frosted glass effects:
+
+```astro
+<div class="bg-primary/5 backdrop-blur-md">
+  <!-- Glass-morphism content -->
+</div>
+```
+
+**Common patterns:**
+- `backdrop-blur-sm` - Subtle blur
+- `backdrop-blur-md` - Medium blur (most common)
+- `backdrop-blur-lg` - Heavy blur
+
+## Design Tokens Usage
+
+### Spacing and Layout
+
+The portfolio uses Tailwind's default spacing scale consistently:
+
+```astro
+<!-- Section spacing -->
+<section class="py-24 px-6">
+  
+<!-- Content max-width containers -->
+<div class="max-w-7xl mx-auto">  <!-- 1280px -->
+<div class="max-w-6xl mx-auto">  <!-- 1152px -->
+<div class="max-w-5xl mx-auto">  <!-- 1024px -->
+```
+
+### Transitions
+
+Consistent transition durations:
+
+```astro
+<!-- Standard transition -->
+<div class="transition-all duration-300">
+
+<!-- Slow transition -->
+<div class="transition-all duration-500">
+
+<!-- Transform transition -->
+<div class="transition-transform duration-700">
+```
+
+**Easing:**
+- Default: `ease` (most interactive elements)
+- `ease-in-out` (animations)
+- `ease-out` (cards, hover states)
+
+## Customizing the Theme
+
+### Changing the Primary Color
+
+1. Open `/src/styles/global.css`
+2. Update the primary color variables:
+
+```css
+@theme {
+  --color-primary: #YOUR_COLOR;        /* Main accent */
+  --color-primary-dim: #YOUR_DIM_COLOR; /* Slightly darker */
+}
+```
+
+3. Update gradient colors if needed:
+
+```css
+.text-gradient {
+  background-image: linear-gradient(
+    to right, 
+    #FFFFFF, 
+    #YOUR_LIGHT, 
+    #YOUR_COLOR, 
+    #YOUR_DARK
+  );
+}
+```
+
+### Changing Background Colors
+
+Update ocean palette in `/src/styles/global.css`:
+
+```css
+@theme {
+  --color-ocean-dark: #YOUR_DARK;   /* Main background */
+  --color-ocean-card: #YOUR_MID;    /* Cards */
+  --color-ocean-light: #YOUR_LIGHT; /* Accents */
+}
+```
+
+**Tip:** Maintain sufficient contrast ratios for accessibility (WCAG AA: 4.5:1 for body text)
+
+### Changing Fonts
+
+1. Choose fonts from [Google Fonts](https://fonts.google.com/)
+2. Update the import in `/src/layouts/Layout.astro`:
+
+```html
+<link
+  href="https://fonts.googleapis.com/css2?family=YourSans:wght@400;700&family=YourSerif:wght@700&display=swap"
+  rel="stylesheet"
+/>
+```
+
+3. Update font variables in `/src/styles/global.css`:
+
+```css
+@theme {
+  --font-sans: "Your Sans", sans-serif;
+  --font-serif: "Your Serif", serif;
+}
+```
+
+## Accessibility Considerations
+
+1. **Contrast ratios**: All color combinations meet WCAG AA standards
+2. **Focus states**: Interactive elements have visible focus indicators via `focus:ring-2 focus:ring-primary`
+3. **Reduced motion**: Consider adding `@media (prefers-reduced-motion)` queries for animations
+4. **Semantic colors**: Colors convey meaning but don't rely solely on color (text labels included)
+
+## Best Practices
+
+1. **Use design tokens**: Always reference CSS variables rather than hardcoded values
+2. **Maintain consistency**: Stick to the defined color palette and spacing scale
+3. **Test contrast**: Verify text readability against backgrounds
+4. **Optimize performance**: Limit custom fonts to necessary weights
+5. **Document changes**: Note any custom modifications to the theme
+
+## Next Steps
+
+- Learn about [Styling](/customization/styling) for animations and custom utilities
+- Explore [Content Customization](/customization/content) to update your information

@@ -1,0 +1,302 @@
+---
+title: Getting started
+description: Learn how to set up and run the Jamir Garro portfolio locally. Install dependencies, start the development server, and build for production.
+---
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your system:
+
+- **Node.js** 18.x or higher
+- **pnpm** (preferred) or npm package manager
+- A code editor (VS Code recommended)
+
+<Note>
+  This project uses `pnpm` as the package manager. While you can use `npm` or `yarn`, the documentation examples use `pnpm` commands.
+</Note>
+
+## Installation
+
+<Steps>
+  <Step title="Clone the repository">
+    Get the source code from GitHub:
+    
+    ```bash
+    git clone https://github.com/Doki2007/portfolio.git
+    cd portfolio
+    ```
+  </Step>
+
+  <Step title="Install dependencies">
+    Install all required packages using pnpm:
+    
+    ```bash
+    pnpm install
+    ```
+    
+    This will install the following key dependencies:
+    
+    ```json
+    {
+      "astro": "^5.17.1",
+      "tailwindcss": "^4.1.18",
+      "@tailwindcss/vite": "^4.1.18",
+      "sharp": "^0.34.5"
+    }
+    ```
+  </Step>
+
+  <Step title="Start the development server">
+    Launch the local development server:
+    
+    ```bash
+    pnpm dev
+    ```
+    
+    The portfolio will be available at `http://localhost:4321`
+    
+    <Info>
+      The dev server includes hot module replacement (HMR), so changes to your code will be reflected instantly in the browser.
+    </Info>
+  </Step>
+
+  <Step title="Explore the portfolio">
+    Open your browser and navigate to:
+    
+    - **Home**: `http://localhost:4321` - Main portfolio page
+    - **Astro Dev Toolbar**: Visible in development mode for debugging
+    
+    You should see the complete portfolio with all sections:
+    - Hero section with availability badge
+    - About section with professional timeline
+    - Projects showcase with featured work
+    - Contact form with social links
+  </Step>
+</Steps>
+
+## Available commands
+
+All commands are run from the root of the project:
+
+| Command | Action |
+|---------|--------|
+| `pnpm dev` | Starts local dev server at `localhost:4321` |
+| `pnpm build` | Build production site to `./dist/` |
+| `pnpm preview` | Preview your build locally before deploying |
+| `pnpm astro` | Run Astro CLI commands |
+
+### Development command
+
+The development server provides:
+
+```bash
+pnpm dev
+```
+
+- Fast hot module replacement (HMR)
+- TypeScript type checking
+- Astro dev toolbar for debugging
+- Accessible at `http://localhost:4321`
+
+### Build command
+
+Create an optimized production build:
+
+```bash
+pnpm build
+```
+
+This will:
+1. Type-check all TypeScript files
+2. Optimize and bundle assets
+3. Generate static HTML pages
+4. Optimize images with Sharp
+5. Output to `./dist/` directory
+
+<Info>
+  The build output is fully static and can be deployed to any static hosting service like Vercel, Netlify, or Cloudflare Pages.
+</Info>
+
+### Preview command
+
+Test the production build locally:
+
+```bash
+pnpm preview
+```
+
+This serves the `./dist/` folder to verify the build works correctly before deployment.
+
+## Configuration overview
+
+The portfolio uses a minimal Astro configuration:
+
+```js
+// astro.config.mjs
+import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  site: "https://jamirgarro.vercel.app",
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});
+```
+
+### Key configuration details
+
+<CardGroup cols={2}>
+  <Card title="Site URL" icon="link">
+    Configured for deployment at `https://jamirgarro.vercel.app`
+  </Card>
+  <Card title="Tailwind CSS" icon="paintbrush">
+    Integrated via Vite plugin for optimal performance
+  </Card>
+  <Card title="TypeScript" icon="code">
+    Strict mode enabled via `tsconfig.json`
+  </Card>
+  <Card title="Image optimization" icon="image">
+    Sharp library for automatic image processing
+  </Card>
+</CardGroup>
+
+## Project structure
+
+Once installed, you'll see the following structure:
+
+```text
+/
+├── public/
+│   ├── favicon.svg
+│   ├── favicon.ico
+│   └── English-cv.pdf         # Downloadable CV
+├── src/
+│   ├── assets/
+│   │   └── images/            # Project screenshots and hero image
+│   ├── components/
+│   │   ├── About.astro        # Professional timeline and tech stack
+│   │   ├── Contact.astro      # Contact form with Formspree
+│   │   ├── Footer.astro       # Footer component
+│   │   ├── Hero.astro         # Hero section with animated elements
+│   │   ├── Navbar.astro       # Sticky navigation with scroll tracking
+│   │   └── Projects.astro     # Featured projects showcase
+│   ├── layouts/
+│   │   └── Layout.astro       # Base layout with global styles
+│   ├── pages/
+│   │   └── index.astro        # Main page composition
+│   └── styles/
+│       └── global.css         # Tailwind config and custom styles
+├── astro.config.mjs           # Astro configuration
+├── package.json               # Project dependencies
+└── tsconfig.json              # TypeScript configuration
+```
+
+## Development workflow
+
+<Steps>
+  <Step title="Start the dev server">
+    ```bash
+    pnpm dev
+    ```
+  </Step>
+
+  <Step title="Make your changes">
+    Edit components in `src/components/` or styles in `src/styles/global.css`
+    
+    Changes will hot-reload automatically in the browser.
+  </Step>
+
+  <Step title="Test the build">
+    Before committing, verify the production build works:
+    
+    ```bash
+    pnpm build && pnpm preview
+    ```
+  </Step>
+
+  <Step title="Deploy">
+    Push to GitHub and let Vercel automatically deploy your changes.
+  </Step>
+</Steps>
+
+## TypeScript configuration
+
+The project uses Astro's strict TypeScript preset:
+
+```json
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
+}
+```
+
+This provides:
+- Full type safety for Astro components
+- IntelliSense in your editor
+- Compile-time error checking
+- Better refactoring support
+
+<Note>
+  The Navbar component includes TypeScript for the scroll-based navigation logic at `src/components/Navbar.astro:75`.
+</Note>
+
+## Custom fonts and icons
+
+The portfolio uses Google Fonts and Material Symbols:
+
+```html
+<!-- From src/layouts/Layout.astro -->
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+  rel="stylesheet"
+/>
+```
+
+- **Inter**: Primary font family for body text
+- **Playfair Display**: Serif font for headings
+- **Material Symbols**: Icon system for UI elements
+
+## Troubleshooting
+
+### Port already in use
+
+If port 4321 is occupied, Astro will automatically use the next available port. Check the terminal output for the actual URL.
+
+### Build errors
+
+Ensure you're using Node.js 18.x or higher:
+
+```bash
+node --version
+```
+
+### Sharp installation issues
+
+If Sharp fails to install, try:
+
+```bash
+pnpm install --force
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Project structure" icon="sitemap" href="/development/structure">
+    Learn about the component structure and organization
+  </Card>
+  <Card title="Styling guide" icon="palette" href="/customization/styling">
+    Explore the Tailwind CSS configuration and design system
+  </Card>
+  <Card title="Components" icon="cube" href="/components/hero">
+    Deep dive into each component's functionality
+  </Card>
+  <Card title="Deployment" icon="rocket" href="/deployment/build">
+    Deploy your customized portfolio to production
+  </Card>
+</CardGroup>

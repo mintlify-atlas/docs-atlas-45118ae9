@@ -1,0 +1,341 @@
+---
+title: Projects Component
+description: Displays featured portfolio projects in a responsive grid with image previews, technology badges, and interactive hover effects.
+---
+
+## Overview
+
+The Projects component showcases featured work in an elegant card-based layout. Each project card includes an optimized image, technology tags, challenge highlights, and links to live demos and source code. The component uses Astro's Image component for performance optimization.
+
+## Component Code
+
+```astro
+---
+import cmsImage from "../assets/images/cms.webp";
+import iridesImage from "../assets/images/irides.webp";
+import { Image } from "astro:assets";
+---
+
+<section class="py-24 px-6 bg-ocean-card" id="projects">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <!-- Project Grid -->
+  </div>
+</section>
+```
+
+## Section Header
+
+Features a title with a "Portfolio" badge and GitHub link:
+
+```html
+<div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-4 mb-10">
+  <div>
+    <div class="inline-block px-3 py-1 mb-3 rounded border border-primary/50 text-primary text-xs font-bold tracking-widest uppercase bg-ocean-dark/50 backdrop-blur-md">
+      Portfolio
+    </div>
+    <h2 class="text-4xl font-bold text-white">Featured Work</h2>
+  </div>
+  <a
+    class="text-text-light hover:text-primary flex items-center gap-2 transition-all duration-300 group hover:drop-shadow-[0_0_10px] hover:drop-shadow-primary"
+    href="https://github.com/Doki2007"
+    target="_blank"
+    title="View GitHub"
+  >
+    View GitHub 
+    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">
+      arrow_forward
+    </span>
+  </a>
+</div>
+```
+
+<Note>
+The GitHub link features a sliding arrow animation on hover using `group-hover:translate-x-1`.
+</Note>
+
+## Project Card Structure
+
+Each project uses a vertical card layout with distinct sections:
+
+<CodeGroup>
+```html Card Container
+<article class="glass-card rounded-3xl overflow-hidden group hover:shadow-[0_20px_40px] hover:shadow-primary/15 hover:-translate-y-2 transition-all duration-300 ease-out border-2 border-primary/30 hover:border-primary/50 bg-ocean-dark flex flex-col h-full">
+  <!-- Image Section -->
+  <!-- Content Section -->
+</article>
+```
+
+```css Hover Effects
+.hover:shadow-[0_20px_40px]: Elevates card with large shadow
+.hover:shadow-primary/15: Adds primary-colored glow
+.hover:-translate-y-2: Lifts card 8px upward
+.hover:border-primary/50: Enhances border visibility
+```
+</CodeGroup>
+
+## Image Section
+
+Utilizes Astro's optimized Image component with responsive sizing:
+
+<Tabs>
+  <Tab title="Image Container">
+    ```html
+    <div class="h-52 bg-ocean-light relative overflow-hidden shrink-0">
+      <div class="absolute inset-0 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1">
+        <Image
+          src={cmsImage}
+          alt="Headless CMS showing Peruvian organic coffee beans and nutrition products"
+          class="w-full h-full object-cover object-top"
+          loading="lazy"
+          decoding="async"
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </div>
+      <!-- Gradient overlay -->
+      <!-- Tech badges -->
+    </div>
+    ```
+
+    **Key Features:**
+    - Fixed height of 208px (`h-52`)
+    - Image scales and rotates on hover
+    - Lazy loading for performance
+    - Responsive image widths
+  </Tab>
+  
+  <Tab title="Gradient Overlay">
+    ```html
+    <div class="absolute inset-0 bg-linear-to-t from-[#000052] via-[#000052]/40 to-transparent opacity-90">
+    </div>
+    ```
+
+    Creates a gradient from solid navy at the bottom to transparent at the top, ensuring tech badges remain readable.
+  </Tab>
+  
+  <Tab title="Tech Badges">
+    ```html
+    <div class="absolute bottom-6 left-6 flex gap-2">
+      <span class="px-3 py-1 bg-primary/20 border border-primary/20 text-primary text-[11px] font-bold rounded-full backdrop-blur-sm shadow-lg">
+        ASTRO
+      </span>
+      <span class="px-3 py-1 bg-[#131632]/60 border border-white/10 text-white text-[11px] font-bold rounded-full backdrop-blur-sm">
+        TAILWIND
+      </span>
+      <span class="px-3 py-1 bg-white/10 border border-white/10 text-white text-[11px] font-bold rounded-full backdrop-blur-sm">
+        VANILLA JS
+      </span>
+    </div>
+    ```
+
+    Positioned absolutely at bottom-left with backdrop blur for glassmorphism effect.
+  </Tab>
+</Tabs>
+
+## Content Section
+
+The content area uses flexbox to create proper spacing:
+
+```html
+<div class="p-6 bg-ocean-dark flex flex-col flex-1">
+  <!-- Title -->
+  <h3 class="text-xl md:text-2xl font-serif text-primary transition-colors mb-2">
+    Headless CMS
+  </h3>
+  
+  <!-- Description -->
+  <p class="text-white text-sm mb-6 leading-relaxed font-semibold flex-1">
+    A high-performance headless CMS designed to manage a catalog of
+    organic products and an interactive recipe book. Built for speed and
+    scalability using Astro and efficient Vanilla JavaScript.
+  </p>
+  
+  <!-- Challenges section -->
+  <!-- Action links -->
+</div>
+```
+
+<Note>
+The `flex-1` class on the description ensures it takes available space, pushing the challenges and links to the bottom.
+</Note>
+
+## Challenges Section
+
+Highlights technical accomplishments with checkmark icons:
+
+<CodeGroup>
+```html Challenge Container
+<div class="bg-ocean-card border border-primary/30 group-hover:border-primary/50 rounded-2xl p-4 mb-6 transition-colors">
+  <p class="text-xs font-bold text-primary uppercase tracking-wider mb-5 flex items-center gap-2">
+    <span class="material-symbols-outlined text-sm">psychology</span> 
+    Challenges Overcome
+  </p>
+  <ul class="space-y-3">
+    <!-- Challenge items -->
+  </ul>
+</div>
+```
+
+```html Challenge Item
+<li class="flex items-center gap-2 text-xs text-white">
+  <span class="material-symbols-outlined text-primary text-base mt-0.5">
+    check_circle
+  </span>
+  <span>
+    Architected a scalable static content structure for diverse
+    data types (products, recipes).
+  </span>
+</li>
+```
+</CodeGroup>
+
+## Action Links
+
+Provides links to live demo and source code:
+
+```html
+<div class="flex items-center justify-end pt-4 border-t border-white/5 mt-auto">
+  <div class="flex gap-4">
+    <a href="https://alefoods.vercel.app" target="_blank" title="Live Demo">
+      <span class="material-symbols-outlined text-primary hover:text-primary/60 cursor-pointer transition-colors">
+        laptop_chromebook
+      </span>
+    </a>
+    <a href="https://github.com/Doki2007/alefoods" target="_blank" title="View Code">
+      <span class="material-symbols-outlined text-primary hover:text-primary/60 cursor-pointer transition-colors">
+        code
+      </span>
+    </a>
+  </div>
+</div>
+```
+
+## Featured Projects
+
+<Tabs>
+  <Tab title="Headless CMS">
+    **Project Details:**
+    - **Technologies:** Astro, Tailwind CSS, Vanilla JS
+    - **Description:** High-performance headless CMS for organic products and recipe book
+    - **Live:** [alefoods.vercel.app](https://alefoods.vercel.app)
+    - **Source:** [github.com/Doki2007/alefoods](https://github.com/Doki2007/alefoods)
+
+    **Challenges:**
+    1. Architected scalable static content structure
+    2. Optimized rendering for near-instant load times
+  </Tab>
+  
+  <Tab title="Alefoods Website">
+    **Project Details:**
+    - **Technologies:** Angular, Tailwind CSS, TypeScript
+    - **Description:** Robust corporate landing page with brand consistency
+    - **Live:** [alefoods.pe](https://alefoods.pe)
+    - **Source:** [github.com/Doki2007/irides](https://github.com/Doki2007/irides)
+
+    **Challenges:**
+    1. Pixel-perfect implementation within strict timeline
+    2. Modular component-based architecture for maintainability
+
+    **Tech Badge Colors:**
+    - Angular: Red accent (`bg-red-600/20`, `text-red-400`)
+    - TypeScript: Blue accent (`bg-blue-600/20`, `text-blue-400`)
+  </Tab>
+</Tabs>
+
+## Layout Grid
+
+Projects are displayed in a responsive grid:
+
+```html
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-x-16">
+  <!-- Project cards -->
+</div>
+```
+
+<Tabs>
+  <Tab title="Mobile">
+    - Single column (`grid-cols-1`)
+    - Cards stack vertically
+    - Full-width images
+  </Tab>
+  
+  <Tab title="Desktop">
+    - Two columns (`lg:grid-cols-2`)
+    - 16 units gap between columns
+    - Side-by-side layout
+  </Tab>
+</Tabs>
+
+## Image Optimization
+
+Astro's Image component provides automatic optimization:
+
+<CodeGroup>
+```astro Image Props
+<Image
+  src={cmsImage}
+  alt="Descriptive alt text"
+  class="w-full h-full object-cover object-top"
+  loading="lazy"
+  decoding="async"
+  widths={[400, 800, 1200]}
+  sizes="(max-width: 768px) 100vw, 50vw"
+/>
+```
+
+```markdown Features
+- **widths:** Generates responsive image sizes
+- **sizes:** Defines image sizing at different viewports
+- **loading="lazy":** Defers off-screen images
+- **decoding="async":** Non-blocking image decode
+- **object-cover:** Fills container while maintaining aspect ratio
+- **object-top:** Aligns image from top
+```
+</CodeGroup>
+
+## Usage in Main Page
+
+```astro src/pages/index.astro
+---
+import Projects from "../components/Projects.astro";
+---
+
+<Layout>
+  <Navbar />
+  <Hero />
+  <About />
+  <Projects />
+  <Contact />
+  <Footer />
+</Layout>
+```
+
+## Styling Highlights
+
+### Glass Card Effect
+
+The cards use a combination of techniques:
+- Semi-transparent backgrounds
+- Border with low opacity
+- Shadow effects for depth
+- Backdrop blur (via `glass-card` class)
+
+### Hover Animations
+
+1. **Card Lift:** Entire card translates upward
+2. **Image Zoom:** Image scales and rotates slightly
+3. **Border Glow:** Border opacity increases
+4. **Shadow Enhancement:** Shadow becomes more prominent
+
+### Color Coding
+
+Different technologies use distinct color schemes:
+- **Astro:** Primary/lavender (`bg-primary/20`)
+- **Angular:** Red (`bg-red-600/20`)
+- **TypeScript:** Blue (`bg-blue-600/20`)
+- **Neutral:** White/dark navy for generic tags
+
+<Note>
+All animations use `transition-all` with specified durations for smooth, cohesive interactions.
+</Note>

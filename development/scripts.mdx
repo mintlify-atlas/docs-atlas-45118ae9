@@ -1,0 +1,347 @@
+---
+title: Development Scripts
+description: Complete guide to npm scripts available in the portfolio project for development, building, and deployment
+---
+
+The portfolio project includes several npm scripts defined in `package.json` to streamline development and deployment workflows.
+
+## Available Scripts
+
+All commands are run from the root of the project using pnpm:
+
+```json
+{
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  }
+}
+```
+
+## Core Commands
+
+### `pnpm dev`
+
+Starts the Astro development server with hot module replacement (HMR).
+
+```bash
+pnpm dev
+```
+
+**What it does:**
+- Starts a local development server at `http://localhost:4321`
+- Enables hot module replacement for instant updates
+- Watches for file changes in `src/` directory
+- Provides detailed error messages and stack traces
+- Optimizes for development speed (not production build size)
+
+**Options:**
+
+```bash
+# Start on a different port
+pnpm dev --port 3000
+
+# Expose server to network
+pnpm dev --host
+
+# Open browser automatically
+pnpm dev --open
+```
+
+**Use cases:**
+- Daily development work
+- Testing components and styles locally
+- Debugging with browser DevTools
+- Live-reloading while making changes
+
+### `pnpm build`
+
+Builds the portfolio for production deployment.
+
+```bash
+pnpm build
+```
+
+**What it does:**
+- Compiles all `.astro` files to optimized HTML
+- Bundles and minifies CSS and JavaScript
+- Optimizes images using Sharp
+- Generates static files in the `dist/` directory
+- Creates a production-ready build
+- Runs type checking with TypeScript
+
+**Output:**
+Creates a `dist/` directory containing:
+- Static HTML pages
+- Optimized CSS and JavaScript bundles
+- Compressed and optimized images
+- Static assets from `public/`
+
+**Use cases:**
+- Before deploying to production
+- Testing production build performance
+- Checking final bundle sizes
+- Validating the production output
+
+**Build optimization:**
+The build process includes:
+- Tree-shaking to remove unused code
+- CSS purging to remove unused styles
+- Image optimization and format conversion
+- Minification of HTML, CSS, and JavaScript
+
+### `pnpm preview`
+
+Previews the production build locally before deployment.
+
+```bash
+pnpm preview
+```
+
+**What it does:**
+- Serves the `dist/` directory created by `pnpm build`
+- Starts a local server at `http://localhost:4321`
+- Simulates a production environment
+- Does NOT rebuild the project (serves existing build)
+
+**Important:**
+You must run `pnpm build` before running `pnpm preview`.
+
+**Workflow:**
+
+```bash
+# Build for production
+pnpm build
+
+# Preview the production build
+pnpm preview
+```
+
+**Use cases:**
+- Testing the production build locally
+- Verifying optimizations worked correctly
+- Checking for broken links or missing assets
+- Final QA before deployment
+- Testing on different devices via `--host`
+
+**Options:**
+
+```bash
+# Preview on different port
+pnpm preview --port 8080
+
+# Expose to network
+pnpm preview --host
+```
+
+### `pnpm astro`
+
+Directly runs the Astro CLI for advanced commands.
+
+```bash
+pnpm astro
+```
+
+**What it does:**
+Provides access to all Astro CLI commands without going through npm scripts.
+
+**Common Astro CLI commands:**
+
+```bash
+# Add integrations (React, Vue, etc.)
+pnpm astro add react
+pnpm astro add tailwind
+
+# Run type checking
+pnpm astro check
+
+# Show Astro version and info
+pnpm astro info
+
+# Get help
+pnpm astro --help
+
+# Sync types for content collections
+pnpm astro sync
+```
+
+## Development Workflow
+
+### Standard Development Cycle
+
+<Steps>
+  <Step title="Start development server">
+    ```bash
+    pnpm dev
+    ```
+    Make changes to components, styles, or content.
+  </Step>
+
+  <Step title="Build for production">
+    ```bash
+    pnpm build
+    ```
+    Generate optimized production files.
+  </Step>
+
+  <Step title="Preview production build">
+    ```bash
+    pnpm preview
+    ```
+    Test the production build locally.
+  </Step>
+
+  <Step title="Deploy">
+    Deploy the `dist/` directory to your hosting provider (Vercel, Netlify, etc.).
+  </Step>
+</Steps>
+
+### Quick Testing Workflow
+
+When you need to quickly test production builds:
+
+```bash
+# Build and preview in sequence
+pnpm build && pnpm preview
+```
+
+### Development with Network Access
+
+For testing on mobile devices or other machines:
+
+```bash
+# Development
+pnpm dev --host
+
+# Preview
+pnpm build && pnpm preview --host
+```
+
+## Advanced Usage
+
+### Type Checking
+
+Run TypeScript type checking without building:
+
+```bash
+pnpm astro check
+```
+
+This checks:
+- TypeScript files
+- Astro components with TypeScript
+- Type errors in frontmatter
+
+### Adding Integrations
+
+Use the Astro CLI to add framework integrations:
+
+```bash
+# Add React support
+pnpm astro add react
+
+# Add Sitemap generation
+pnpm astro add sitemap
+
+# Add MDX support
+pnpm astro add mdx
+```
+
+The CLI will automatically:
+- Install required dependencies
+- Update `astro.config.mjs`
+- Apply necessary configuration
+
+### Custom Port Configuration
+
+Create a custom script in `package.json`:
+
+```json
+{
+  "scripts": {
+    "dev:custom": "astro dev --port 3000 --host --open"
+  }
+}
+```
+
+## Performance Tips
+
+### Development Server
+
+- The dev server is optimized for speed, not size
+- Builds are incremental (only changed files are rebuilt)
+- HMR is faster than full page reloads
+- Use `--host` only when needed (slight performance cost)
+
+### Production Builds
+
+- Always run `pnpm build` before deployment
+- Check the `dist/` folder size after building
+- Use `pnpm preview` to test production behavior
+- Clear `dist/` if you encounter stale build issues:
+
+```bash
+rm -rf dist
+pnpm build
+```
+
+## Common Workflows
+
+### Daily Development
+
+```bash
+pnpm dev
+# Make changes, test in browser
+# Changes auto-reload via HMR
+```
+
+### Pre-Deployment Checklist
+
+```bash
+# 1. Run type checking
+pnpm astro check
+
+# 2. Build for production
+pnpm build
+
+# 3. Preview production build
+pnpm preview
+
+# 4. Test on different devices (optional)
+pnpm preview --host
+
+# 5. Deploy dist/ to hosting
+```
+
+### Troubleshooting Builds
+
+```bash
+# Clear all build artifacts
+rm -rf dist node_modules/.astro
+
+# Rebuild
+pnpm build
+```
+
+## Integration with CI/CD
+
+For deployment pipelines (like Vercel or Netlify):
+
+**Build command:**
+```bash
+pnpm build
+```
+
+**Output directory:**
+```
+dist
+```
+
+**Install command:**
+```bash
+pnpm install
+```
+
+These commands are configured in your hosting provider's dashboard and run automatically on each deploy.

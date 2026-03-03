@@ -1,0 +1,161 @@
+---
+title: Project Structure
+description: Understanding the file organization and directory structure of the Jamir Garro Portfolio project
+---
+
+The portfolio is built with Astro and follows standard Astro project conventions. This guide explains how the project is organized and the purpose of each directory.
+
+## Directory Overview
+
+```
+portfolio/
+├── public/              # Static assets served as-is
+├── src/                 # Source code and components
+│   ├── assets/         # Image and SVG assets
+│   │   └── images/     # Image files
+│   ├── components/     # Reusable Astro components
+│   ├── layouts/        # Page layout templates
+│   ├── pages/          # File-based routing pages
+│   └── styles/         # Global CSS and styles
+├── astro.config.mjs    # Astro configuration
+├── package.json        # Project dependencies and scripts
+├── pnpm-lock.yaml      # Locked dependency versions
+└── tsconfig.json       # TypeScript configuration
+```
+
+## Core Directories
+
+### `public/`
+
+Contains static assets that are served directly without processing:
+
+- `favicon.ico` and `favicon.svg` - Site icons
+- `portfolio.jpeg` - Portfolio image
+- `English-cv.pdf` - Downloadable CV/resume
+
+Files in this directory are served at the root URL path. For example, `public/favicon.svg` is accessible at `/favicon.svg`.
+
+### `src/`
+
+The main source directory containing all application code:
+
+#### `src/assets/`
+
+Image and SVG assets that are processed by Astro's asset pipeline:
+
+- `astro.svg` - Astro logo
+- `background.svg` - Background graphics
+- `images/` - Directory for image files
+
+Assets here benefit from Astro's optimization features like automatic image compression and format conversion.
+
+#### `src/components/`
+
+Reusable Astro components that make up the portfolio:
+
+- `About.astro` - About section component
+- `Contact.astro` - Contact form/information
+- `Footer.astro` - Site footer
+- `Hero.astro` - Hero/landing section
+- `Navbar.astro` - Navigation bar
+- `Projects.astro` - Projects showcase section
+
+Components follow Astro's `.astro` format and can include HTML, CSS, and JavaScript.
+
+#### `src/layouts/`
+
+Page layout templates that wrap page content:
+
+- `Layout.astro` - Main layout template with common structure (head, meta tags, global styles)
+
+Layouts provide consistent structure across pages and handle common elements like meta tags and global styles.
+
+#### `src/pages/`
+
+File-based routing pages:
+
+- `index.astro` - Homepage (served at `/`)
+
+Astro uses file-based routing where files in this directory automatically become routes. For example, `index.astro` becomes the root route `/`.
+
+#### `src/styles/`
+
+Global CSS styles:
+
+- `global.css` - Global CSS styles and Tailwind imports
+
+This directory contains site-wide styles that are imported in layouts or components.
+
+## Configuration Files
+
+### `astro.config.mjs`
+
+Astro configuration file that defines:
+
+```javascript
+export default defineConfig({
+  site: "https://jamirgarro.vercel.app",
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});
+```
+
+- **site**: Production URL for generating absolute URLs and sitemaps
+- **vite.plugins**: Vite plugins including Tailwind CSS integration
+
+### `package.json`
+
+Defines project metadata, dependencies, and npm scripts:
+
+- **name**: `portfolio`
+- **type**: `module` (ES modules)
+- **dependencies**: Astro, Tailwind CSS, Sharp (image processing)
+
+### `tsconfig.json`
+
+TypeScript configuration extending Astro's strict preset:
+
+```json
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
+}
+```
+
+## Astro Conventions
+
+### File-Based Routing
+
+Astro automatically creates routes based on files in `src/pages/`:
+
+- `src/pages/index.astro` → `/`
+- `src/pages/about.astro` → `/about`
+- `src/pages/blog/post.astro` → `/blog/post`
+
+### Component Architecture
+
+Components are modular and reusable:
+
+1. **Pages** import **Layouts**
+2. **Layouts** provide structure and import global styles
+3. **Components** are imported into pages or layouts
+
+### Asset Handling
+
+- **Static assets** in `public/` are served as-is
+- **Source assets** in `src/assets/` are optimized by Astro's build process
+- Use `public/` for files that need specific names (like `favicon.ico`)
+- Use `src/assets/` for images that benefit from optimization
+
+## Build Output
+
+When you run `pnpm build`, Astro generates a `dist/` directory containing:
+
+- Optimized HTML pages
+- Bundled CSS and JavaScript
+- Processed images
+- Static assets from `public/`
+
+This directory is ready for deployment to any static hosting service.

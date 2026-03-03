@@ -1,0 +1,214 @@
+---
+title: Styling
+description: Learn how to customize the styling of your portfolio using Tailwind CSS 4.x and custom CSS utilities
+---
+
+# Styling
+
+The portfolio uses Tailwind CSS 4.x for styling, configured through the modern `@theme` directive in the global CSS file. This approach provides a clean, maintainable way to customize your design system.
+
+## Tailwind CSS 4.x Setup
+
+The portfolio is configured with Tailwind CSS 4.x using the Vite plugin:
+
+```js
+// astro.config.mjs
+import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  site: "https://jamirgarro.vercel.app",
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});
+```
+
+**Key dependencies:**
+- `tailwindcss`: ^4.1.18
+- `@tailwindcss/vite`: ^4.1.18
+
+## Custom Theme Configuration
+
+All theme customizations are defined in `/src/styles/global.css` using the `@theme` directive:
+
+```css
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #CCCCFE;
+  --color-primary-dim: #a5a5d9;
+  --color-ocean-dark: #12152A;
+  --color-ocean-card: #1a1e36;
+  --color-ocean-light: #232946;
+  --color-text-light: #90a1b9;
+
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+      
+  --border-radius: 0.25rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-xl: 0.75rem;
+  --border-radius-2xl: 1rem;
+  --border-radius-full: 9999px;
+}
+```
+
+### Color Variables
+
+The portfolio uses a cohesive ocean-themed color palette:
+
+| Variable | Value | Usage |
+|----------|-------|-------|
+| `--color-primary` | `#CCCCFE` | Primary accent color for buttons, links, highlights |
+| `--color-primary-dim` | `#a5a5d9` | Dimmed variant for hover states |
+| `--color-ocean-dark` | `#12152A` | Main background color |
+| `--color-ocean-card` | `#1a1e36` | Card and section backgrounds |
+| `--color-ocean-light` | `#232946` | Lighter background variant |
+| `--color-text-light` | `#90a1b9` | Secondary text color |
+
+**Usage in components:**
+
+```astro
+<section class="bg-ocean-dark text-primary">
+  <div class="bg-ocean-card border border-primary/30">
+    <p class="text-text-light">Secondary text</p>
+  </div>
+</section>
+```
+
+### Font Configuration
+
+Two Google Fonts are used throughout the portfolio:
+
+- **Inter**: Primary sans-serif font for body text (weights: 400, 500, 600, 700, 800, 900)
+- **Playfair Display**: Serif font for headings (weight: 700)
+
+Fonts are loaded in `/src/layouts/Layout.astro`:
+
+```html
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap"
+  rel="stylesheet"
+/>
+```
+
+## Custom CSS Utilities
+
+The portfolio includes several custom utility classes for common design patterns:
+
+### Ocean Gradient
+
+A dark gradient used for hero sections:
+
+```css
+.ocean-gradient {
+  background: linear-gradient(180deg, #12152a 0%, #0e1121 100%);
+}
+```
+
+**Example:**
+```astro
+<section class="ocean-gradient min-h-screen">
+  <!-- Hero content -->
+</section>
+```
+
+### Text Gradient
+
+Creates an animated gradient effect on text:
+
+```css
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right, #FFFFFF, #E6E6FE, #CCCCFE, #9B9BFD);
+}
+```
+
+**Example from Hero component:**
+```astro
+<h1>
+  Junior Frontend Developer
+  <span class="text-gradient">/ Jamir Garro</span>
+</h1>
+```
+
+### Organic Border
+
+Creates a morphing, organic border effect:
+
+```css
+.organic-border {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: morph 8s ease-in-out infinite;
+}
+```
+
+## Animations
+
+The portfolio includes custom keyframe animations defined in the theme:
+
+### Morph Animation
+
+```css
+@keyframes morph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+```
+
+This creates a smooth, organic morphing effect perfect for decorative elements.
+
+### Built-in Tailwind Animations
+
+The portfolio also uses Tailwind's built-in animations:
+
+```astro
+<!-- Pulse animation -->
+<span class="animate-pulse bg-primary"></span>
+
+<!-- Bounce animation -->
+<span class="material-symbols-outlined group-hover:animate-bounce">
+  arrow_downward
+</span>
+
+<!-- Spin animation -->
+<div class="animate-[spin_10s_linear_infinite]"></div>
+
+<!-- Reverse spin -->
+<div class="animate-[spin_20s_linear_infinite_reverse]"></div>
+```
+
+## Smooth Scrolling
+
+Smooth scrolling is enabled globally:
+
+```css
+html {
+  scroll-behavior: smooth;
+}
+```
+
+This enhances navigation when using anchor links like `#projects` or `#contact`.
+
+## Best Practices
+
+1. **Use CSS variables**: Always use the defined color variables instead of hardcoded hex values for consistency
+2. **Leverage Tailwind utilities**: Combine Tailwind classes for spacing, layout, and responsive design
+3. **Custom utilities for patterns**: Create custom CSS classes for repeated complex patterns
+4. **Test responsiveness**: The portfolio uses responsive breakpoints (`sm:`, `md:`, `lg:`) extensively
+5. **Maintain performance**: Avoid excessive animations on mobile devices
+
+## Next Steps
+
+- Explore the [Theme](/customization/theme) documentation for detailed color system information
+- Learn about [Content Customization](/customization/content) to update text and personal information

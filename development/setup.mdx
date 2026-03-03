@@ -1,0 +1,184 @@
+---
+title: Development Setup
+description: Step-by-step guide to setting up the development environment for the Jamir Garro Portfolio
+---
+
+This guide will walk you through setting up the portfolio project for local development.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your system:
+
+### Node.js
+
+The project requires Node.js version 18 or higher.
+
+Check your Node.js version:
+
+```bash
+node --version
+```
+
+If you need to install or update Node.js, download it from [nodejs.org](https://nodejs.org/) or use a version manager like [nvm](https://github.com/nvm-sh/nvm).
+
+### pnpm
+
+This project uses pnpm as its package manager for faster, more efficient dependency management.
+
+Check if pnpm is installed:
+
+```bash
+pnpm --version
+```
+
+If not installed, install pnpm globally:
+
+```bash
+npm install -g pnpm
+```
+
+Alternatively, you can use [Corepack](https://nodejs.org/api/corepack.html) which comes with Node.js 16+:
+
+```bash
+corepack enable
+corepack prepare pnpm@latest --activate
+```
+
+## Installation Steps
+
+<Steps>
+  <Step title="Clone the repository">
+    Clone the portfolio repository to your local machine:
+
+    ```bash
+    git clone <repository-url>
+    cd portfolio
+    ```
+
+    Replace `<repository-url>` with the actual repository URL.
+  </Step>
+
+  <Step title="Install dependencies">
+    Install all project dependencies using pnpm:
+
+    ```bash
+    pnpm install
+    ```
+
+    This will install:
+    - **Astro** (v5.17.1) - The web framework
+    - **Tailwind CSS** (v4.1.18) - Utility-first CSS framework
+    - **Sharp** (v0.34.5) - Image processing library
+    - All other required dependencies
+
+    The installation uses the locked versions from `pnpm-lock.yaml` to ensure consistency across environments.
+  </Step>
+
+  <Step title="Start the development server">
+    Launch the local development server:
+
+    ```bash
+    pnpm dev
+    ```
+
+    The server will start at `http://localhost:4321` by default.
+
+    You should see output similar to:
+
+    ```
+    🚀 astro v5.17.1 started in 123ms
+
+    ┃ Local    http://localhost:4321/
+    ┃ Network  use --host to expose
+    ```
+  </Step>
+
+  <Step title="Open in browser">
+    Open your browser and navigate to:
+
+    ```
+    http://localhost:4321
+    ```
+
+    You should see the portfolio homepage. The development server includes hot module replacement (HMR), so changes you make to files will automatically refresh in the browser.
+  </Step>
+</Steps>
+
+## Development Environment
+
+### Editor Setup
+
+For the best development experience, we recommend:
+
+**Visual Studio Code** with the following extensions:
+
+- [Astro](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode) - Official Astro language support
+- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) - Autocomplete for Tailwind classes
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - JavaScript/TypeScript linting
+
+The project includes a `.vscode/` directory with recommended settings.
+
+### TypeScript Support
+
+The project uses TypeScript with Astro's strict configuration. TypeScript provides:
+
+- Type checking for JavaScript and Astro files
+- IntelliSense and autocomplete
+- Better refactoring support
+
+The configuration extends Astro's strict preset in `tsconfig.json`.
+
+## Troubleshooting
+
+### Port Already in Use
+
+If port 4321 is already in use, you can specify a different port:
+
+```bash
+pnpm dev --port 3000
+```
+
+### Clear Cache
+
+If you encounter issues with cached files:
+
+```bash
+rm -rf node_modules/.astro
+pnpm dev
+```
+
+### Reinstall Dependencies
+
+If dependencies seem corrupted:
+
+```bash
+rm -rf node_modules pnpm-lock.yaml
+pnpm install
+```
+
+### Node Version Issues
+
+Ensure you're using Node.js 18 or higher. Use nvm to switch versions:
+
+```bash
+nvm use 18
+```
+
+## Next Steps
+
+Now that your development environment is set up:
+
+1. Explore the [Project Structure](/development/structure) to understand the codebase
+2. Learn about available [Scripts](/development/scripts) for development and build tasks
+3. Start making changes to components in `src/components/`
+4. Customize styles in `src/styles/global.css`
+
+## Network Access
+
+To access the development server from other devices on your network:
+
+```bash
+pnpm dev --host
+```
+
+This will expose the server on your local network, useful for testing on mobile devices.

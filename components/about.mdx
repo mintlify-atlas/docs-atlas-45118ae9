@@ -1,0 +1,265 @@
+---
+title: About Component
+description: Showcases the developer's background, experience timeline, and technology stack with elegant card layouts and hover effects.
+---
+
+## Overview
+
+The About component presents professional information in a two-column layout: a biographical section with tech stack on the left, and a timeline of professional milestones on the right. It features interactive hover effects and a modern card-based design.
+
+## Component Code
+
+```astro
+<section class="py-24 relative bg-ocean-dark" id="about">
+  <div class="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-primary/5 to-transparent pointer-events-none">
+  </div>
+  <div class="mx-auto max-w-7xl px-6 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+      <!-- Bio and Tech Stack -->
+      <!-- Timeline -->
+    </div>
+  </div>
+</section>
+```
+
+## Section Structure
+
+### Biographical Content
+
+The left column contains introduction text and technology badges:
+
+```html
+<div>
+  <h2 class="font-serif text-white text-4xl md:text-5xl font-bold mb-8">
+    Building Digital <br />
+    <span class="text-primary italic drop-shadow-[0_0_10px_rgba(204,204,254,0.4)]">
+      Experiences
+    </span>
+  </h2>
+  <div class="space-y-4 text-slate-400 text-lg leading-relaxed font-light">
+    <p>I am a passionate software developer who finds creativity in code...</p>
+    <p>Since then, I have honed my skills through self-directed learning...</p>
+  </div>
+</div>
+```
+
+<Note>
+The heading uses a combination of serif font for elegance and italic styling for the accent text with a custom glow effect.
+</Note>
+
+## Tech Stack Section
+
+Displays technology proficiencies as interactive badges:
+
+<CodeGroup>
+```html Badge Structure
+<div class="mt-8">
+  <h3 class="text-primary text-lg font-bold mb-6 flex items-center gap-2">
+    <span class="w-8 h-px bg-primary shadow-[0_0_8px_#CCCCFE]"></span>
+    Tech Stack
+  </h3>
+  <div class="flex flex-wrap gap-3">
+    <span class="px-5 py-2.5 rounded-lg bg-ocean-card border border-primary/40 text-slate-200 text-sm hover:border-primary hover:shadow-[0_0_15px_rgba(204,204,254,0.3)] transition-all cursor-default font-medium flex items-center gap-1">
+      <span class="material-symbols-outlined text-xs ml-1">rocket_launch</span>
+      Astro
+    </span>
+    <!-- More badges... -->
+  </div>
+</div>
+```
+
+```css Hover Effects
+.hover:border-primary: Changes border color on hover
+.hover:shadow-[0_0_15px_rgba(204,204,254,0.3)]: Adds glow effect
+.transition-all: Smooth animation
+```
+</CodeGroup>
+
+### Technology List
+
+The component displays the following technologies:
+
+<Tabs>
+  <Tab title="Frameworks">
+    - **Astro** - Primary framework (rocket_launch icon)
+    - **Angular** - Basic level (code_blocks icon)
+    - **React** - Basic level (dashboard icon)
+  </Tab>
+  
+  <Tab title="Styling">
+    - **Tailwind CSS** - CSS framework (css icon)
+    - **TypeScript** - Type-safe JavaScript (code icon)
+    - **JavaScript** - Core language (javascript icon)
+  </Tab>
+  
+  <Tab title="Tools">
+    - **Git & Github** - Version control (storage icon)
+    - **npm** - Package manager (terminal icon)
+    - **pnpm** - Fast package manager (terminal icon)
+  </Tab>
+</Tabs>
+
+## Professional Timeline
+
+The right column features a vertical timeline with interactive milestone cards:
+
+```html
+<div class="bg-ocean-card/50 rounded-3xl p-8 lg:p-10 border border-white/5 backdrop-blur-sm shadow-[0_0_40px_rgba(0,0,0,0.3)]">
+  <h3 class="text-primary text-2xl font-bold mb-10 flex items-center gap-3">
+    <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg shadow-[0_0_10px_rgba(204,204,254,0.2)]">
+      history_edu
+    </span>
+    Professional Milestones
+  </h3>
+  <div class="relative pl-2">
+    <!-- Timeline items -->
+  </div>
+</div>
+```
+
+### Timeline Item Structure
+
+Each milestone uses a grid layout with an icon and connecting line:
+
+<CodeGroup>
+```html Timeline Entry
+<div class="relative grid grid-cols-[40px_1fr] gap-x-6 mb-12 group">
+  <!-- Icon with connecting line -->
+  <div class="relative z-10 w-10 h-10 rounded-full bg-ocean-dark border-3 border-primary/40 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-ocean-dark group-hover:shadow-[0_0_15px_rgba(204,204,254,0.5)] transition-all shadow-lg shadow-black/20 after:content-[''] after:h-30 after:w-0.5 after:bg-primary/70 after:absolute after:top-9.5 after:left-1/2 after:-translate-x-1/2">
+    <span class="material-symbols-outlined text-lg">mail</span>
+  </div>
+  
+  <!-- Content -->
+  <div>
+    <span class="inline-block px-2 py-0.5 rounded text-xs font-bold bg-white/5 text-primary mb-2 shadow-[0_0_5px_rgba(204,204,254,0.1)]">
+      Sep 2025 - Present
+    </span>
+    <h4 class="text-white text-lg font-bold">Email Developer</h4>
+    <p class="text-primary-dim text-sm font-medium">FCB</p>
+    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+      Creating responsive email campaigns for major clients...
+    </p>
+  </div>
+</div>
+```
+
+```css Connecting Line
+after:content-['']: Pseudo-element for vertical line
+after:h-30: Height of 120px (30 * 0.25rem)
+after:w-0.5: 2px width
+after:bg-primary/70: Semi-transparent primary color
+after:absolute after:top-9.5: Positioned below icon
+```
+</CodeGroup>
+
+### Timeline Entries
+
+<Tabs>
+  <Tab title="Current Role">
+    **Email Developer at FCB**
+    - **Period:** Sep 2025 - Present
+    - **Icon:** mail
+    - **Description:** Creating responsive email campaigns for major clients, ensuring pixel-perfect mobile rendering and coordinating via Jira/Trello and building with Stripo.
+  </Tab>
+  
+  <Tab title="Freelance Work">
+    **Freelance Frontend Developer at Alefoods**
+    - **Period:** Jan 2025 - Present
+    - **Icon:** laptop_mac
+    - **Description:** Delivered full-stack solutions. Evolved the platform from an Angular MVP to a high-performance Astro application utilizing Content Collections.
+  </Tab>
+  
+  <Tab title="Education">
+    **Software Development at ISIL**
+    - **Period:** Sep 2022 - Jul 2024
+    - **Icon:** school
+    - **Description:** Accelerated academic performance, completing the 3-year software engineering curriculum in 2 years through continuous summer terms.
+  </Tab>
+</Tabs>
+
+## Interactive Effects
+
+### Hover Transitions
+
+Timeline icons feature sophisticated hover effects:
+
+```css
+group-hover:bg-primary: Icon background changes to primary color
+group-hover:text-ocean-dark: Text inverts to dark
+group-hover:shadow-[0_0_15px_rgba(204,204,254,0.5)]: Adds glow
+transition-all: Smooth animation for all properties
+```
+
+### Tech Badge Interactions
+
+Each technology badge responds to hover:
+
+1. Border color changes from `border-primary/40` to `border-primary`
+2. Glow effect appears: `shadow-[0_0_15px_rgba(204,204,254,0.3)]`
+3. All transitions are smooth via `transition-all`
+
+## Background Effects
+
+Subtle gradient overlay adds depth:
+
+```html
+<div class="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-primary/5 to-transparent pointer-events-none">
+</div>
+```
+
+<Note>
+The `pointer-events-none` class ensures background elements don't interfere with user interactions.
+</Note>
+
+## Usage in Main Page
+
+```astro src/pages/index.astro
+---
+import About from "../components/About.astro";
+---
+
+<Layout>
+  <Navbar />
+  <Hero />
+  <About />
+  <Projects />
+  <Contact />
+  <Footer />
+</Layout>
+```
+
+## Responsive Design
+
+<Tabs>
+  <Tab title="Mobile (< 1024px)">
+    - Single column layout (`grid-cols-1`)
+    - Bio section stacks above timeline
+    - Reduced padding and gap spacing
+    - Tech badges wrap naturally
+  </Tab>
+  
+  <Tab title="Desktop (≥ 1024px)">
+    - Two-column grid (`lg:grid-cols-2`)
+    - Side-by-side layout
+    - Larger gaps (24 units)
+    - Enhanced visual hierarchy
+  </Tab>
+</Tabs>
+
+## Styling Details
+
+### Typography
+- **Headings:** `font-serif` for elegance
+- **Body Text:** `font-light` for readability
+- **Labels:** `font-bold uppercase tracking-wider` for emphasis
+
+### Color System
+- **Primary Text:** `text-white` for main content
+- **Secondary Text:** `text-slate-400` for descriptions
+- **Accent:** `text-primary` for highlights and icons
+- **Background:** `bg-ocean-dark` and `bg-ocean-card` for depth
+
+### Border and Shadow
+- Borders use opacity variants: `border-primary/40`, `border-white/5`
+- Custom shadows create glow effects: `shadow-[0_0_10px_rgba(204,204,254,0.4)]`
+- Backdrop blur for glassmorphism: `backdrop-blur-sm`

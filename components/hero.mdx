@@ -1,0 +1,229 @@
+---
+title: Hero Component
+description: The landing section featuring an animated profile image, introduction text, and call-to-action buttons with gradient effects and animations.
+---
+
+## Overview
+
+The Hero component serves as the landing section of the portfolio, creating an impactful first impression with animated elements, gradient backgrounds, and responsive layouts. It features a two-column grid layout with introduction text on one side and an animated profile image on the other.
+
+## Component Code
+
+```astro
+---
+import HeroImage from "../assets/images/hero-image.webp";
+---
+
+<section
+  class="relative min-h-screen bg-ocean-dark flex items-center pt-24 pb-12 overflow-hidden ocean-gradient"
+  id="home"
+>
+  <div
+    class="absolute inset-0 opacity-10 pointer-events-none"
+    style="background-image: radial-gradient(#CCCCFE 1px, transparent 1px); background-size: 50px 50px;"
+  >
+  </div>
+  <div
+    class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px] pointer-events-none"
+  >
+  </div>
+  <div
+    class="relative z-10 mx-auto max-w-7xl px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+  >
+    {/* Content sections... */}
+  </div>
+</section>
+```
+
+## Key Features
+
+### Animated Status Badge
+
+Displays availability status with a pulsing indicator:
+
+<CodeGroup>
+```html Badge HTML
+<div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-bold uppercase tracking-widest shadow-[0_0_15px_rgba(204,204,254,0.1)]">
+  <span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#CCCCFE]"></span>
+  Available for work
+</div>
+```
+
+```css Tailwind Classes
+- animate-pulse: Creates pulsing animation
+- shadow-[0_0_15px_rgba(204,204,254,0.1)]: Custom glow effect
+- tracking-widest: Letter spacing for emphasis
+```
+</CodeGroup>
+
+### Gradient Text Effect
+
+The name features a custom gradient applied via the `text-gradient` class:
+
+```html
+<h1 class="font-display font-black text-white text-4xl md:text-5xl lg:text-6xl mb-6 leading-[1.1] tracking-tight drop-shadow-[0_0_15px_rgba(204,204,254,0.2)]">
+  Junior Frontend Developer
+  <span class="text-gradient">/ <br class="hidden lg:block" />Jamir Garro</span>
+</h1>
+```
+
+### Call-to-Action Buttons
+
+<Tabs>
+  <Tab title="Primary Button">
+    ```html
+    <a
+      class="group w-full sm:w-auto bg-primary hover:bg-[#E0E0FF] text-ocean-dark px-8 py-4 rounded-full font-bold text-base transition-all duration-300 shadow-[0_0_20px_rgba(204,204,254,0.3)] hover:shadow-[0_0_40px_rgba(204,204,254,0.5)] hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-2"
+      href="#projects"
+    >
+      View Projects
+      <span class="material-symbols-outlined text-xl group-hover:animate-bounce">
+        arrow_downward
+      </span>
+    </a>
+    ```
+
+    **Styling Features:**
+    - Glow effect on hover with enhanced shadow
+    - Vertical translation on hover (`-translate-y-1`)
+    - Icon bounces on hover using `group-hover:animate-bounce`
+  </Tab>
+  
+  <Tab title="Secondary Button">
+    ```html
+    <a
+      class="w-full sm:w-auto border border-white/20 hover:bg-white/5 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(204,204,254,0.1)] text-white px-8 py-4 rounded-full font-bold text-base transition-all flex items-center justify-center"
+      href="#contact"
+    >
+      Contact Me
+    </a>
+    ```
+
+    **Styling Features:**
+    - Outlined style with semi-transparent borders
+    - Subtle background on hover
+    - Border color changes to primary accent
+  </Tab>
+</Tabs>
+
+## Animated Profile Section
+
+The profile image features multiple animated orbital rings:
+
+```html
+<div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-112.5 lg:h-112.5">
+  <!-- Outer rotating ring -->
+  <div class="absolute inset-0 rounded-full border border-primary/20 scale-110 animate-[spin_10s_linear_infinite] shadow-[0_0_30px_rgba(204,204,254,0.1)]">
+  </div>
+  
+  <!-- Reverse rotating dashed ring -->
+  <div class="absolute inset-0 rounded-full border border-dashed border-primary/30 scale-125 animate-[spin_20s_linear_infinite_reverse]">
+  </div>
+  
+  <!-- Profile image container -->
+  <div class="relative w-full h-full rounded-full border-4 border-primary/50 shadow-[0_0_50px_rgba(204,204,254,0.25)] overflow-hidden bg-ocean-card">
+    <img
+      alt="Jamir Garro Portrait"
+      class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+      src={HeroImage.src}
+    />
+  </div>
+</div>
+```
+
+<Note>
+**Animation Details:**
+- First ring: 10-second rotation (`spin_10s_linear_infinite`)
+- Second ring: 20-second reverse rotation (`spin_20s_linear_infinite_reverse`)
+- Image scales up on hover for interactive feedback
+</Note>
+
+## Status Card
+
+A floating status card with bounce animation:
+
+```html
+<div class="absolute -bottom-4 -left-4 md:left-0 bg-ocean-card border border-primary/40 p-4 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3 animate-bounce backdrop-blur-md transition-all duration-500 ease-in">
+  <div class="bg-primary/20 p-2 rounded-lg text-primary shadow-2xs flex items-center justify-center">
+    <span class="material-symbols-outlined drop-shadow-[0_0_5px_rgba(204,204,254,0.5)] leading-none">terminal</span>
+  </div>
+  <div>
+    <p class="text-xs text-slate-400 uppercase font-bold">Status</p>
+    <p class="text-white font-bold">Freelance Developer</p>
+  </div>
+</div>
+```
+
+## Background Effects
+
+The Hero section includes atmospheric background elements:
+
+<CodeGroup>
+```html Dot Grid Pattern
+<div
+  class="absolute inset-0 opacity-10 pointer-events-none"
+  style="background-image: radial-gradient(#CCCCFE 1px, transparent 1px); background-size: 50px 50px;"
+>
+</div>
+```
+
+```html Gradient Blur
+<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px] pointer-events-none">
+</div>
+```
+</CodeGroup>
+
+## Usage in Main Page
+
+The Hero component is imported and rendered at the top of the page:
+
+```astro src/pages/index.astro
+---
+import Hero from "../components/Hero.astro";
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+// ... other imports
+---
+
+<Layout>
+  <Navbar />
+  <Hero />
+  <!-- Other sections -->
+</Layout>
+```
+
+## Styling Approach
+
+### Color Palette
+- **Background:** `bg-ocean-dark` - Deep navy background
+- **Primary Accent:** `bg-primary` (#CCCCFE) - Lavender blue
+- **Text:** `text-white`, `text-slate-300` - White and light gray
+
+### Responsive Design
+
+<Tabs>
+  <Tab title="Mobile">
+    - Single column layout
+    - Centered text alignment
+    - Stacked buttons
+    - Image displayed first (order-1)
+  </Tab>
+  
+  <Tab title="Desktop">
+    - Two-column grid (`lg:grid-cols-2`)
+    - Left-aligned text
+    - Side-by-side buttons
+    - Image on the right (order-2)
+  </Tab>
+</Tabs>
+
+## Interactive Features
+
+1. **Hover Effects:** Buttons lift and glow on hover
+2. **Animations:** Multiple elements use CSS animations (pulse, spin, bounce)
+3. **Smooth Transitions:** All interactive elements have `transition-all` applied
+4. **Group Interactions:** Icon animations triggered by parent hover state
+
+<Note>
+The component uses Material Symbols icons loaded globally. Ensure the icon font is included in your Layout component.
+</Note>

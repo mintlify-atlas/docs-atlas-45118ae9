@@ -1,0 +1,177 @@
+---
+title: Deploy to Vercel
+description: Step-by-step guide to deploying your Astro portfolio on Vercel
+---
+
+Vercel is the recommended hosting platform for Astro sites, offering zero-configuration deployments with automatic builds and global CDN distribution.
+
+## Live Site
+
+Your portfolio is configured to deploy to: **https://jamirgarro.vercel.app**
+
+This URL is set in `astro.config.mjs` as the `site` property.
+
+## Deployment Steps
+
+<Steps>
+
+<Step title="Connect Your Repository">
+  1. Go to [vercel.com](https://vercel.com) and sign in with GitHub
+  2. Click "Add New..." → "Project"
+  3. Import your portfolio repository
+  4. Authorize Vercel to access your GitHub account if prompted
+</Step>
+
+<Step title="Configure Build Settings">
+  Vercel automatically detects Astro projects. Verify these settings:
+  
+  - **Framework Preset**: Astro
+  - **Build Command**: `npm run build` (or `pnpm build`)
+  - **Output Directory**: `dist`
+  - **Install Command**: `npm install` (or `pnpm install`)
+  
+  <Note>
+  Vercel automatically detects which package manager you're using based on your lockfile (pnpm-lock.yaml).
+  </Note>
+</Step>
+
+<Step title="Deploy">
+  Click **Deploy** and wait for the build to complete. Vercel will:
+  
+  - Install dependencies
+  - Run `astro build`
+  - Deploy to a global CDN
+  - Provide a production URL
+  
+  Your first deploy typically takes 1-2 minutes.
+</Step>
+
+<Step title="Configure Custom Domain (Optional)">
+  After deployment, you can add a custom domain:
+  
+  1. Go to Project Settings → Domains
+  2. Add your custom domain
+  3. Update DNS records as instructed
+  4. Update the `site` property in `astro.config.mjs` to match your domain
+</Step>
+
+</Steps>
+
+## Automatic Deployments
+
+Vercel automatically deploys your site when:
+
+- **Production**: Pushes to your main/master branch
+- **Preview**: Pull requests and other branches get unique preview URLs
+
+Every commit triggers a new deployment, ensuring your live site is always up to date.
+
+<Tip>
+Preview deployments are perfect for testing changes before merging. Each PR gets its own unique URL.
+</Tip>
+
+## Environment Variables
+
+If you need to add environment variables:
+
+1. Go to Project Settings → Environment Variables
+2. Add your variables for Production, Preview, or Development
+3. Redeploy for changes to take effect
+
+<Note>
+For Astro, prefix public variables with `PUBLIC_` to make them available in the browser.
+</Note>
+
+## Build Configuration
+
+Your `astro.config.mjs` is already configured for Vercel:
+
+```js
+export default defineConfig({
+  site: "https://jamirgarro.vercel.app",
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});
+```
+
+No additional configuration files are needed. Vercel handles everything automatically.
+
+## Deployment Best Practices
+
+<Steps>
+
+<Step title="Test Builds Locally">
+  Always run `npm run build` locally before pushing to catch errors early:
+  
+  ```bash
+  npm run build
+  npm run preview
+  ```
+</Step>
+
+<Step title="Monitor Deployments">
+  Check the Vercel dashboard for:
+  - Build logs and errors
+  - Performance analytics
+  - Bandwidth usage
+  - Deployment history
+</Step>
+
+<Step title="Optimize for Performance">
+  Vercel automatically provides:
+  - Gzip/Brotli compression
+  - Global CDN caching
+  - Automatic HTTPS
+  - HTTP/2 support
+  
+  No additional configuration required!
+</Step>
+
+<Step title="Use Preview URLs for Testing">
+  Before merging PRs, test using the preview URL Vercel provides. This ensures changes work correctly in production.
+</Step>
+
+</Steps>
+
+## Vercel Features
+
+Your Astro portfolio on Vercel includes:
+
+- **Global CDN**: Content served from edge locations worldwide
+- **Automatic HTTPS**: SSL certificates provisioned automatically
+- **Analytics**: Built-in performance and visitor analytics
+- **Zero Config**: No setup required for Astro
+- **Instant Rollbacks**: Revert to any previous deployment instantly
+
+<Tip>
+Vercel's free tier is perfect for personal portfolios. You get unlimited bandwidth for personal projects.
+</Tip>
+
+## Troubleshooting
+
+If your deployment fails:
+
+1. **Check build logs** in the Vercel dashboard
+2. **Verify package manager**: Ensure lockfile matches package manager
+3. **Test locally**: Run `npm run build` to reproduce errors
+4. **Check Node version**: Vercel uses Node 18 by default
+
+To specify a Node version, add to `package.json`:
+
+```json
+{
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+```
+
+## Next Steps
+
+After deploying:
+
+- Set up a custom domain in Vercel settings
+- Enable Web Analytics for visitor insights
+- Configure deployment notifications in GitHub
+- Add deployment status badges to your README

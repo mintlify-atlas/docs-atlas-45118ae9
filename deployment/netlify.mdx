@@ -1,0 +1,321 @@
+---
+title: Deploy to Netlify
+description: Step-by-step guide to deploying your Astro portfolio on Netlify
+---
+
+Netlify is a powerful platform for deploying static sites with continuous deployment, serverless functions, and edge capabilities.
+
+## Deployment Steps
+
+<Steps>
+
+<Step title="Connect Your Repository">
+  1. Go to [netlify.com](https://netlify.com) and sign in
+  2. Click "Add new site" → "Import an existing project"
+  3. Choose your Git provider (GitHub, GitLab, or Bitbucket)
+  4. Select your portfolio repository
+  5. Authorize Netlify to access your repository
+</Step>
+
+<Step title="Configure Build Settings">
+  Set up your build configuration:
+  
+  - **Build command**: `npm run build`
+  - **Publish directory**: `dist`
+  - **Base directory**: (leave empty)
+  
+  <Note>
+  If you're using pnpm, Netlify will automatically detect it from your `pnpm-lock.yaml` file.
+  </Note>
+</Step>
+
+<Step title="Deploy">
+  Click **Deploy site** and Netlify will:
+  
+  - Install dependencies
+  - Run your build command
+  - Deploy to their global CDN
+  - Assign a random subdomain (e.g., `random-name-123.netlify.app`)
+  
+  Initial deployment typically completes in 1-3 minutes.
+</Step>
+
+<Step title="Configure Site Name (Optional)">
+  Change your site's subdomain:
+  
+  1. Go to Site settings → General → Site details
+  2. Click "Change site name"
+  3. Choose a custom subdomain: `yourname.netlify.app`
+  4. Update the `site` property in `astro.config.mjs` if needed
+</Step>
+
+</Steps>
+
+## Configuration File
+
+For more control, create a `netlify.toml` file in your project root:
+
+```toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+```
+
+This configuration:
+- Sets the Node.js version
+- Adds security headers
+- Configures caching for assets
+
+<Tip>
+The `netlify.toml` file is optional. Netlify auto-detects Astro projects, but this file gives you fine-grained control.
+</Tip>
+
+## Build Command Options
+
+Depending on your package manager:
+
+```bash
+# npm
+npm run build
+
+# pnpm (recommended for this project)
+pnpm build
+
+# yarn
+yarn build
+```
+
+Netlify automatically detects your package manager from your lockfile.
+
+## Environment Variables
+
+To add environment variables:
+
+<Steps>
+
+<Step title="Access Site Settings">
+  Navigate to Site settings → Environment variables
+</Step>
+
+<Step title="Add Variables">
+  Add your environment variables with these scopes:
+  - **Production**: Live site only
+  - **Deploy previews**: Pull request previews
+  - **Branch deploys**: Specific branch deployments
+</Step>
+
+<Step title="Deploy Context">
+  Use different values for different contexts:
+  
+  ```toml
+  [context.production.environment]
+    API_URL = "https://api.example.com"
+  
+  [context.deploy-preview.environment]
+    API_URL = "https://staging-api.example.com"
+  ```
+</Step>
+
+</Steps>
+
+<Note>
+For Astro, prefix client-side variables with `PUBLIC_` to expose them in the browser. Server-only variables don't need the prefix.
+</Note>
+
+## Automatic Deployments
+
+Netlify automatically deploys when:
+
+- **Production deploys**: Pushes to your main branch
+- **Deploy previews**: Pull requests get unique preview URLs
+- **Branch deploys**: Other branches (configurable)
+
+Each deployment gets a unique URL that never changes, perfect for testing.
+
+## Custom Domain Setup
+
+To use a custom domain:
+
+<Steps>
+
+<Step title="Add Domain">
+  1. Go to Site settings → Domain management
+  2. Click "Add custom domain"
+  3. Enter your domain name (e.g., `jamirgarro.com`)
+</Step>
+
+<Step title="Configure DNS">
+  Choose your DNS configuration method:
+  
+  **Option 1: Netlify DNS (Recommended)**
+  - Transfer your DNS to Netlify's nameservers
+  - Automatic SSL and DNS management
+  
+  **Option 2: External DNS**
+  - Add A record: `75.2.60.5`
+  - Or CNAME: `yoursite.netlify.app`
+</Step>
+
+<Step title="Enable HTTPS">
+  Netlify automatically provisions SSL certificates via Let's Encrypt. HTTPS is enabled by default.
+</Step>
+
+<Step title="Update Config">
+  Update `astro.config.mjs` with your custom domain:
+  
+  ```js
+  export default defineConfig({
+    site: "https://yourdomain.com",
+  });
+  ```
+</Step>
+
+</Steps>
+
+## Netlify Features
+
+Your Astro portfolio on Netlify includes:
+
+- **Global CDN**: Content distributed across edge nodes
+- **Automatic SSL**: Free HTTPS certificates
+- **Deploy previews**: Unique URLs for every PR
+- **Form handling**: Built-in form submissions
+- **Redirects & rewrites**: URL management without code
+- **Split testing**: A/B testing capabilities
+
+## Advanced Configuration
+
+### Redirects and Rewrites
+
+Add redirects in `netlify.toml`:
+
+```toml
+[[redirects]]
+  from = "/old-page"
+  to = "/new-page"
+  status = 301
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
+
+### Custom Headers
+
+Enhance security with custom headers:
+
+```toml
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+```
+
+## Deployment Best Practices
+
+<Steps>
+
+<Step title="Test Locally First">
+  Always build and preview locally before pushing:
+  
+  ```bash
+  npm run build
+  npm run preview
+  ```
+  
+  Visit `http://localhost:4321` to test the production build.
+</Step>
+
+<Step title="Monitor Build Logs">
+  Check Netlify's deploy logs for:
+  - Build warnings and errors
+  - Deployment time
+  - Bundle size information
+</Step>
+
+<Step title="Enable Build Plugins">
+  Netlify offers build plugins for:
+  - Lighthouse CI for performance checks
+  - Image optimization
+  - Accessibility testing
+  
+  Browse plugins at the [Netlify Plugins Directory](https://www.netlify.com/integrations/).
+</Step>
+
+<Step title="Use Deploy Previews">
+  Test changes in deploy previews before merging to production. Each PR gets a unique URL automatically.
+</Step>
+
+</Steps>
+
+<Tip>
+Enable "Deploy notifications" in Site settings to get alerts about failed builds via email or Slack.
+</Tip>
+
+## Troubleshooting
+
+Common issues and solutions:
+
+### Build Fails
+
+1. **Check the build log** in the Netlify dashboard
+2. **Verify dependencies**: Ensure `package.json` includes all dependencies
+3. **Test locally**: Run `npm run build` to reproduce the error
+4. **Clear cache**: Use "Clear cache and retry deploy" in Netlify
+
+### Wrong Node Version
+
+Specify Node version in `netlify.toml`:
+
+```toml
+[build.environment]
+  NODE_VERSION = "18"
+```
+
+Or in `package.json`:
+
+```json
+{
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+```
+
+### Assets Not Loading
+
+Ensure the `site` property in `astro.config.mjs` matches your deployment URL:
+
+```js
+export default defineConfig({
+  site: "https://yoursite.netlify.app",
+});
+```
+
+## Next Steps
+
+After deploying to Netlify:
+
+- Set up a custom domain
+- Enable Netlify Analytics for visitor insights
+- Configure form submissions if needed
+- Add deployment status badge to your README
+- Explore Netlify Functions for dynamic features

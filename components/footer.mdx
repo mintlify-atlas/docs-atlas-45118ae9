@@ -1,0 +1,288 @@
+---
+title: Footer Component
+description: A simple, elegant footer component displaying branding and copyright information with minimal styling.
+---
+
+## Overview
+
+The Footer component provides a clean, minimalist bottom section for the portfolio site. It displays the brand name, a separator, and copyright text in a centered, responsive layout.
+
+## Component Code
+
+```astro
+<footer class="bg-[#0b0e1b] py-8 border-t border-white/5">
+  <div class="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center justify-center gap-6">
+    <div class="flex items-center gap-2">
+      <span class="text-white font-bold text-lg">JAMIR.DEV</span>
+      <span class="text-slate-600 mx-2">|</span>
+      <p class="text-slate-500 text-sm">© 2026. Crafted with ocean vibes.</p>
+    </div>
+  </div>
+</footer>
+```
+
+## Structure Breakdown
+
+### Footer Container
+
+The outer footer element sets the background and spacing:
+
+```html
+<footer class="bg-[#0b0e1b] py-8 border-t border-white/5">
+  <!-- Content -->
+</footer>
+```
+
+**Styling:**
+- `bg-[#0b0e1b]` - Custom dark navy background (darker than main sections)
+- `py-8` - 32px padding top and bottom
+- `border-t border-white/5` - Subtle top border separator
+
+### Content Wrapper
+
+Centered container with responsive flex layout:
+
+```html
+<div class="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center justify-center gap-6">
+  <!-- Footer content -->
+</div>
+```
+
+<Tabs>
+  <Tab title="Mobile Layout">
+    - `flex-col` - Stacks content vertically
+    - `items-center` - Centers horizontally
+    - `gap-6` - 24px spacing between elements
+  </Tab>
+  
+  <Tab title="Desktop Layout">
+    - `md:flex-row` - Horizontal layout on medium+ screens
+    - `justify-center` - Centers content horizontally
+    - Same gap maintained
+  </Tab>
+</Tabs>
+
+## Content Elements
+
+### Brand Name
+
+Displays the site brand in bold white text:
+
+```html
+<span class="text-white font-bold text-lg">JAMIR.DEV</span>
+```
+
+**Properties:**
+- White color for high contrast
+- Bold weight for emphasis
+- Large text size (18px)
+- All caps for brand consistency
+
+### Separator
+
+Visual divider between brand and copyright:
+
+```html
+<span class="text-slate-600 mx-2">|</span>
+```
+
+**Features:**
+- Vertical bar character
+- Muted slate color
+- Horizontal margin for spacing
+
+### Copyright Text
+
+Legal and creative credit:
+
+```html
+<p class="text-slate-500 text-sm">© 2026. Crafted with ocean vibes.</p>
+```
+
+**Styling:**
+- Light slate color (more muted than separator)
+- Smaller text size (14px)
+- Friendly, personality-driven copy
+
+<Note>
+The copyright year (2026) and "ocean vibes" tagline add personality while maintaining professionalism.
+</Note>
+
+## Usage in Main Page
+
+```astro src/pages/index.astro
+---
+import Footer from "../components/Footer.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <Navbar />
+  <Hero />
+  <About />
+  <Projects />
+  <Contact />
+  <Footer />
+</Layout>
+```
+
+The Footer is placed last in the page layout, providing a natural conclusion to the content.
+
+## Design Philosophy
+
+### Minimalism
+
+The footer embraces simplicity:
+- No social links (already in Contact section)
+- No navigation duplication
+- No excessive information
+- Clean, uncluttered design
+
+### Color Hierarchy
+
+<CodeGroup>
+```css Text Colors
+text-white: Brand name (highest contrast)
+text-slate-600: Separator (medium contrast)
+text-slate-500: Copyright (lower contrast)
+```
+
+```css Background
+bg-[#0b0e1b]: Darker than main sections
+border-white/5: Very subtle top border
+```
+</CodeGroup>
+
+## Responsive Behavior
+
+<Tabs>
+  <Tab title="Mobile View">
+    ```
+    ┌──────────────┐
+    │  JAMIR.DEV   │
+    │      |       │
+    │   © 2026.    │
+    │ Crafted with │
+    │ ocean vibes. │
+    └──────────────┘
+    ```
+    
+    Content may wrap or stack depending on viewport width.
+  </Tab>
+  
+  <Tab title="Desktop View">
+    ```
+    ┌────────────────────────────────────────┐
+    │  JAMIR.DEV  |  © 2026. Crafted with   │
+    │                ocean vibes.            │
+    └────────────────────────────────────────┘
+    ```
+    
+    All content in a single horizontal line.
+  </Tab>
+</Tabs>
+
+## Customization Options
+
+While the current implementation is minimal, you could extend it:
+
+### Additional Links
+
+```html
+<div class="flex items-center gap-2">
+  <span class="text-white font-bold text-lg">JAMIR.DEV</span>
+  <span class="text-slate-600 mx-2">|</span>
+  <nav class="flex gap-4 text-sm">
+    <a href="/privacy" class="text-slate-500 hover:text-primary transition-colors">Privacy</a>
+    <a href="/terms" class="text-slate-500 hover:text-primary transition-colors">Terms</a>
+  </nav>
+  <span class="text-slate-600 mx-2">|</span>
+  <p class="text-slate-500 text-sm">© 2026. Crafted with ocean vibes.</p>
+</div>
+```
+
+### Social Icons
+
+```html
+<div class="flex items-center gap-4 mt-4">
+  <a href="https://github.com/..." class="text-slate-500 hover:text-primary">
+    <!-- GitHub icon -->
+  </a>
+  <a href="https://linkedin.com/..." class="text-slate-500 hover:text-primary">
+    <!-- LinkedIn icon -->
+  </a>
+</div>
+```
+
+### Back to Top Button
+
+```html
+<a 
+  href="#home" 
+  class="text-primary hover:text-primary-dim transition-colors flex items-center gap-1"
+>
+  <span class="material-symbols-outlined">arrow_upward</span>
+  Back to top
+</a>
+```
+
+## Styling Consistency
+
+### Theme Integration
+
+The footer maintains consistency with the overall design:
+
+- **Background:** Darker shade of ocean theme (`#0b0e1b`)
+- **Borders:** Same low-opacity white as other sections
+- **Typography:** Matches site-wide font stack
+- **Spacing:** Uses consistent Tailwind spacing scale
+
+### Border Treatment
+
+```css
+border-t border-white/5
+```
+
+This creates a subtle separation from the Contact section above without being visually heavy.
+
+## Accessibility
+
+<Note>
+**Semantic HTML:** Uses proper `<footer>` element for screen readers and SEO.
+</Note>
+
+Accessibility features:
+1. Semantic `<footer>` tag
+2. Adequate color contrast (white on dark navy)
+3. Readable font sizes
+4. No interactive elements requiring focus states (in base version)
+
+## File Location
+
+```
+src/
+└── components/
+    └── Footer.astro
+```
+
+## Performance
+
+The Footer component is extremely lightweight:
+- **No JavaScript:** Pure HTML/CSS
+- **No images:** Text-only content
+- **Minimal CSS:** Uses utility classes
+- **Fast rendering:** Simple DOM structure
+
+## Future Enhancements
+
+Potential improvements:
+
+1. **Dynamic year:** Use JavaScript to automatically update copyright year
+2. **Newsletter signup:** Add email subscription form
+3. **Sitemap links:** Include main navigation for convenience
+4. **Language selector:** For multi-language support
+5. **Theme toggle:** If implementing dark/light mode
+
+<Note>
+Keep the footer simple to avoid overwhelming users at the end of their browsing experience.
+</Note>

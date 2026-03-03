@@ -1,0 +1,136 @@
+---
+title: Build Process
+description: Learn how to build your Astro portfolio for production deployment
+---
+
+The build process compiles your Astro site into optimized static files ready for deployment.
+
+## Building for Production
+
+To build your portfolio for production, run the build command:
+
+```bash
+npm run build
+```
+
+Or if you're using pnpm:
+
+```bash
+pnpm build
+```
+
+This command runs `astro build` which:
+
+- Compiles all `.astro` components into HTML
+- Bundles and minifies JavaScript and CSS
+- Optimizes images using Sharp
+- Generates static routes
+- Creates a production-ready output
+
+## Output Directory Structure
+
+After building, you'll find the production files in the `dist/` directory:
+
+```
+dist/
+├── _astro/          # Bundled CSS, JS, and optimized assets
+│   ├── *.css        # Minified stylesheets
+│   └── *.js         # Minified JavaScript bundles
+├── index.html       # Main page
+└── [other pages].html
+```
+
+<Note>
+The `dist/` directory is gitignored by default. Never commit build artifacts to your repository.
+</Note>
+
+## Static Site Generation
+
+Astro uses **Static Site Generation (SSG)** by default, which means:
+
+- All pages are pre-rendered at build time
+- No server runtime is required
+- Pages are served as static HTML files
+- Extremely fast load times and excellent SEO
+- Can be hosted on any static hosting platform
+
+### Build Configuration
+
+The build process is configured in `astro.config.mjs`:
+
+```js
+export default defineConfig({
+  site: "https://jamirgarro.vercel.app",
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});
+```
+
+The `site` property is important as it:
+- Sets the base URL for canonical links
+- Generates correct absolute URLs
+- Improves SEO and social sharing
+
+## Optimization Tips
+
+<Steps>
+
+<Step title="Optimize Images">
+  Use Astro's built-in image optimization with the `<Image>` component. Sharp is already included in your dependencies for automatic image processing.
+  
+  ```astro
+  import { Image } from 'astro:assets';
+  import myImage from '../assets/photo.jpg';
+  
+  <Image src={myImage} alt="Description" />
+  ```
+</Step>
+
+<Step title="Minimize Dependencies">
+  Keep your `package.json` lean. Only include dependencies you actually use. Your current setup is already optimized with just Astro, Tailwind CSS, and Sharp.
+</Step>
+
+<Step title="Enable Build Caching">
+  Most hosting platforms cache build outputs. Ensure your deployment platform is configured to cache:
+  - `node_modules/`
+  - `.astro/` (Astro's cache directory)
+</Step>
+
+<Step title="Analyze Bundle Size">
+  Use the preview command to test your build locally:
+  
+  ```bash
+  npm run preview
+  ```
+  
+  This serves your `dist/` folder locally at `http://localhost:4321` so you can test the production build.
+</Step>
+
+</Steps>
+
+<Tip>
+Run `astro build` regularly during development to catch build-time errors early. What works in dev mode doesn't always work in production.
+</Tip>
+
+## Build Performance
+
+Your Astro portfolio benefits from:
+
+- **Vite-powered builds**: Lightning-fast compilation
+- **Tailwind CSS**: Automatic purging of unused styles
+- **Zero JavaScript by default**: Only ships JS when needed
+- **Optimized assets**: Automatic minification and compression
+
+## Troubleshooting
+
+If you encounter build errors:
+
+1. **Clear the cache**: Delete the `.astro/` and `dist/` directories
+2. **Check imports**: Ensure all file paths are correct
+3. **Verify dependencies**: Run `npm install` to ensure all packages are installed
+4. **Review TypeScript errors**: Check `tsconfig.json` for type issues
+
+<Note>
+Build errors are often more strict than dev mode errors. Always test your build before deploying.
+</Note>
